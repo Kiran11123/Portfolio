@@ -1,101 +1,61 @@
 document.getElementById('year').textContent = new Date().getFullYear();
 
+/* ---------- Theme toggle ---------- */
+const root = document.documentElement;
+const themeToggle = document.getElementById('themeToggle');
+
+function setTheme(theme){
+  root.setAttribute('data-theme', theme);
+  localStorage.setItem('theme', theme);
+  themeToggle.setAttribute('aria-pressed', theme === 'light');
+  themeToggle.setAttribute('aria-label', theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode');
+}
+
+themeToggle.addEventListener('click', () => {
+  const current = root.getAttribute('data-theme') || 'dark';
+  setTheme(current === 'dark' ? 'light' : 'dark');
+});
+
+/* sync initial aria state (theme itself already set in <head> to avoid flash) */
+setTheme(root.getAttribute('data-theme') || 'dark');
+
 /* ---------- Mobile nav toggle ---------- */
 const navToggle = document.getElementById('navToggle');
 const navLinks = document.getElementById('navLinks');
 navToggle.addEventListener('click', () => {
-  navLinks.classList.toggle('open');
+  const isOpen = navLinks.classList.toggle('open');
+  navToggle.setAttribute('aria-expanded', isOpen);
 });
 navLinks.querySelectorAll('a').forEach(a => {
-  a.addEventListener('click', () => navLinks.classList.remove('open'));
+  a.addEventListener('click', () => {
+    navLinks.classList.remove('open');
+    navToggle.setAttribute('aria-expanded', 'false');
+  });
 });
 
-/* ---------- Terminal typing effect ---------- */
-const lines = [
-  { text: '$ whoami', cls: 't-prompt' },
-  { text: 'Alex Morgan — Business Analyst', cls: 't-out' },
-  { text: '', cls: '' },
-  { text: '$ cat skills.txt', cls: 't-prompt' },
-  { text: 'SQL · Power BI · Process Mapping · Stakeholder Mgmt', cls: 't-out' },
-  { text: '', cls: '' },
-  { text: '$ ./generate_impact.sh --range=3y', cls: 't-prompt' },
-  { text: '> $2.4M in cost savings identified', cls: 't-metric' },
-  { text: '> 40% reduction in reporting time', cls: 't-metric' },
-  { text: '> 12 cross-functional projects delivered', cls: 't-metric' },
-];
-
-const terminalBody = document.getElementById('terminalBody');
-let lineIndex = 0, charIndex = 0;
-const typeSpeed = 18;
-
-function typeNext() {
-  if (lineIndex >= lines.length) return;
-  const current = lines[lineIndex];
-
-  if (charIndex === 0) {
-    const span = document.createElement('div');
-    span.className = current.cls;
-    span.dataset.row = lineIndex;
-    terminalBody.appendChild(span);
-  }
-
-  const row = terminalBody.querySelector(`[data-row="${lineIndex}"]`);
-
-  if (charIndex < current.text.length) {
-    row.textContent = current.text.slice(0, charIndex + 1);
-    charIndex++;
-    setTimeout(typeNext, typeSpeed + Math.random() * 20);
-  } else {
-    lineIndex++;
-    charIndex = 0;
-    setTimeout(typeNext, current.text === '' ? 60 : 220);
-  }
+/* ---------- Sticky nav background on scroll ---------- */
+const nav = document.getElementById('nav');
+function onScroll(){
+  nav.classList.toggle('scrolled', window.scrollY > 30);
 }
+window.addEventListener('scroll', onScroll, { passive: true });
+onScroll();
 
-/* Start typing once the terminal scrolls into view */
-const terminalObserver = new IntersectionObserver((entries) => {
+/* ---------- Active section indicator ---------- */
+const navAnchors = document.querySelectorAll('.nav-links a[data-nav]');
+const sections = [...navAnchors].map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+
+const navObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
-      typeNext();
-      terminalObserver.disconnect();
+      const id = entry.target.getAttribute('id');
+      navAnchors.forEach(a => a.classList.toggle('active', a.getAttribute('href') === `#${id}`));
     }
   });
-}, { threshold: 0.4 });
-terminalObserver.observe(document.querySelector('.terminal'));
+}, { threshold: 0.4, rootMargin: '-80px 0px -60% 0px' });
+sections.forEach(s => navObserver.observe(s));
 
-/* ---------- Animated stat counters ---------- */
-function animateCount(el) {
-  const target = parseFloat(el.dataset.count);
-  const suffix = el.dataset.suffix || '';
-  const prefix = el.dataset.prefix || '';
-  const isDecimal = target % 1 !== 0;
-  const duration = 1200;
-  const start = performance.now();
-
-  function tick(now) {
-    const progress = Math.min((now - start) / duration, 1);
-    const eased = 1 - Math.pow(1 - progress, 3);
-    const value = target * eased;
-    el.textContent = prefix + (isDecimal ? value.toFixed(1) : Math.round(value)) + suffix;
-    if (progress < 1) requestAnimationFrame(tick);
-  }
-  requestAnimationFrame(tick);
-}
-
-const statObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      animateCount(entry.target);
-      statObserver.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.5 });
-document.querySelectorAll('.stat-value').forEach(el => statObserver.observe(el));
-
-/* ---------- Scroll reveal for sections ---------- */
-document.querySelectorAll('.section-head, .about-body, .skills-grid, .timeline, .projects-grid, .contact-inner')
-  .forEach(el => el.classList.add('reveal'));
-
+/* ---------- Scroll reveal ---------- */
 const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
@@ -106,22 +66,33 @@ const revealObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.15 });
 document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-/* ---------- Active nav link on scroll ---------- */
-const sections = document.querySelectorAll('section[id]');
-const navAnchors = document.querySelectorAll('.nav-links a');
+/* ---------- Animated stat counters ---------- */
+function animateCount(el){
+  const target = parseFloat(el.dataset.count);
+  const suffix = el.dataset.suffix || '';
+  const prefix = el.dataset.prefix || '';
+  const isDecimal = target % 1 !== 0;
+  const duration = 1200;
+  const start = performance.now();
 
-const navObserver = new IntersectionObserver((entries) => {
+  function tick(now){
+    const progress = Math.min((now - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    const value = target * eased;
+    el.textContent = prefix + (isDecimal ? value.toFixed(1) : Math.round(value)) + suffix;
+    if (progress < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+const statObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
-    const id = entry.target.getAttribute('id');
-    const link = document.querySelector(`.nav-links a[href="#${id}"]`);
-    if (!link) return;
-    if (entry.isIntersecting) {
-      navAnchors.forEach(a => a.style.color = '');
-      link.style.color = 'var(--text)';
+    if (entry.isIntersecting){
+      animateCount(entry.target);
+      statObserver.unobserve(entry.target);
     }
   });
-}, { threshold: 0.5 });
-sections.forEach(s => navObserver.observe(s));
+}, { threshold: 0.6 });
+document.querySelectorAll('.stat-num').forEach(el => statObserver.observe(el));
 
 /* ---------- Contact form (static placeholder) ---------- */
 const contactForm = document.getElementById('contactForm');
@@ -129,12 +100,14 @@ const formNote = document.getElementById('formNote');
 contactForm.addEventListener('submit', (e) => {
   e.preventDefault();
   formNote.textContent = 'Thanks! (This is a static demo — connect Formspree/EmailJS to actually send this.)';
-  formNote.style.color = 'var(--accent-green)';
+  formNote.style.color = 'var(--accent)';
   contactForm.reset();
 });
 
-/* ---------- Resume button placeholder ---------- */
-document.getElementById('resumeBtn').addEventListener('click', (e) => {
+/* ---------- Resume buttons (placeholder) ---------- */
+function resumePlaceholder(e){
   e.preventDefault();
   alert('Add your resume PDF to the project and link it here, e.g. href="resume.pdf" download.');
-});
+}
+document.getElementById('resumeBtn').addEventListener('click', resumePlaceholder);
+document.getElementById('resumeCard').addEventListener('click', resumePlaceholder);

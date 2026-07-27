@@ -3,184 +3,138 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Alex Morgan — Business Analyst</title>
-<meta name="description" content="Business Analyst portfolio — data-driven decisions, process optimization, and stakeholder impact.">
+<title>Alex Morgan — Business Analyst &amp; Data Analytics</title>
+<meta name="description" content="Business Analyst &amp; Data Analytics portfolio — turning data into decisions across BI, process transformation, and analytics.">
+
+<!-- Prevent theme flash: set theme before first paint -->
+<script>
+  (function(){
+    var saved = localStorage.getItem('theme');
+    var theme = saved || 'dark';
+    document.documentElement.setAttribute('data-theme', theme);
+  })();
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+<a href="#main" class="skip-link">Skip to main content</a>
+
+<!-- BACKGROUND LAYERS -->
+<div class="bg-grid" aria-hidden="true"></div>
+<div class="bg-glow" aria-hidden="true"></div>
+
 <!-- NAV -->
 <header class="nav" id="nav">
   <div class="nav-inner">
-    <a href="#top" class="logo">&gt; alex<span class="cursor-blink">_</span>morgan</a>
-    <nav class="nav-links" id="navLinks">
-      <a href="#about">about</a>
-      <a href="#skills">toolkit</a>
-      <a href="#experience">experience</a>
-      <a href="#projects">projects</a>
-      <a href="#contact">contact</a>
+    <a href="#top" class="logo">Alex Morgan<span class="logo-dot">.</span></a>
+
+    <nav class="nav-links" id="navLinks" aria-label="Primary">
+      <a href="#about" data-nav>About</a>
+      <a href="#experience" data-nav>Experience</a>
+      <a href="#projects" data-nav>Projects</a>
+      <a href="#skills" data-nav>Skills</a>
+      <a href="#education" data-nav>Education</a>
+      <a href="#certifications" data-nav>Certifications</a>
+      <a href="#contact" data-nav>Contact</a>
     </nav>
-    <a href="#contact" class="nav-cta">let's talk</a>
-    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
-      <span></span><span></span><span></span>
-    </button>
+
+    <div class="nav-actions">
+      <button class="theme-toggle" id="themeToggle" aria-label="Switch to light mode" aria-pressed="false">
+        <svg class="icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+        <svg class="icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <a href="#contact" class="btn btn-primary btn-sm">Let's talk</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </div>
 </header>
 
-<!-- TICKER -->
-<div class="ticker" aria-hidden="true">
-  <div class="ticker-track">
-    <span>SQL <em>+2.4M</em></span><span>POWER BI <em>▲</em></span><span>PROCESS MAPPING</span><span>STAKEHOLDER MGMT</span>
-    <span>PYTHON / PANDAS</span><span>AGILE · SCRUM</span><span>FORECASTING <em>▲</em></span><span>REQUIREMENTS GATHERING</span>
-    <span>TABLEAU</span><span>A/B TESTING</span><span>ROADMAPPING</span><span>KPI DESIGN <em>▲</em></span>
-    <span>SQL <em>+2.4M</em></span><span>POWER BI <em>▲</em></span><span>PROCESS MAPPING</span><span>STAKEHOLDER MGMT</span>
-    <span>PYTHON / PANDAS</span><span>AGILE · SCRUM</span><span>FORECASTING <em>▲</em></span><span>REQUIREMENTS GATHERING</span>
-    <span>TABLEAU</span><span>A/B TESTING</span><span>ROADMAPPING</span><span>KPI DESIGN <em>▲</em></span>
-  </div>
-</div>
+<main id="main">
 
 <!-- HERO -->
 <section class="hero" id="top">
   <div class="hero-inner">
-    <div class="hero-left">
-      <p class="eyebrow">Business Analyst · Data → Decisions</p>
-      <h1>Alex Morgan</h1>
-      <p class="hero-sub">I turn messy data and messier requirements into decisions leadership can act on — dashboards, process fixes, and business cases that hold up in the room.</p>
-
-      <div class="terminal" role="img" aria-label="Terminal animation showing a summary of skills and impact">
-        <div class="terminal-bar">
-          <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
-          <span class="terminal-title">analyst.sh</span>
-        </div>
-        <div class="terminal-body" id="terminalBody"></div>
+    <div class="hero-text">
+      <p class="eyebrow reveal">Business Analyst · Data &amp; AI · Digital Transformation</p>
+      <h1 class="reveal">Turning complex data into <span class="accent-text">confident decisions.</span></h1>
+      <p class="hero-sub reveal">I'm Alex Morgan, a business analyst who bridges the gap between raw data and business strategy — building the dashboards, requirements, and process fixes that leadership actually trusts.</p>
+      <div class="hero-actions reveal">
+        <a href="#projects" class="btn btn-primary">View Projects</a>
+        <a href="#" class="btn btn-secondary" id="resumeBtn">Download Résumé</a>
       </div>
-
-      <div class="hero-actions">
-        <a href="#projects" class="btn btn-primary">View projects</a>
-        <a href="#" class="btn btn-ghost" id="resumeBtn">Download resume ↓</a>
+      <div class="hero-stats reveal">
+        <div><span class="stat-num" data-count="5">0</span><span class="stat-label">Years Experience</span></div>
+        <div><span class="stat-num" data-count="2.4" data-prefix="$" data-suffix="M">$0M</span><span class="stat-label">Value Delivered</span></div>
+        <div><span class="stat-num" data-count="12" data-suffix="+">0+</span><span class="stat-label">Projects Shipped</span></div>
       </div>
     </div>
 
-    <div class="hero-right">
-      <div class="panel dashboard-panel">
-        <div class="panel-head">
-          <span class="panel-title">impact_summary.dashboard</span>
-          <span class="panel-live"><span class="live-dot"></span>live</span>
+    <div class="hero-visual reveal">
+      <div class="shape shape-1" aria-hidden="true"></div>
+      <div class="shape shape-2" aria-hidden="true"></div>
+      <div class="shape shape-3" aria-hidden="true"></div>
+      <div class="avatar-card">
+        <div class="avatar-ring">
+          <span class="avatar-initials">AM</span>
         </div>
-
-        <div class="stat-grid">
-          <div class="stat-card">
-            <span class="stat-label">Cost savings identified</span>
-            <span class="stat-value" data-count="2.4" data-suffix="M" data-prefix="$">$0M</span>
-          </div>
-          <div class="stat-card">
-            <span class="stat-label">Reporting time cut</span>
-            <span class="stat-value" data-count="40" data-suffix="%">0%</span>
-          </div>
-          <div class="stat-card">
-            <span class="stat-label">Projects delivered</span>
-            <span class="stat-value" data-count="12" data-suffix="+">0+</span>
-          </div>
-          <div class="stat-card">
-            <span class="stat-label">Stakeholder groups</span>
-            <span class="stat-value" data-count="6" data-suffix="">0</span>
-          </div>
-        </div>
-
-        <div class="chart-wrap">
-          <span class="panel-title small">quarterly efficiency gain</span>
-          <svg viewBox="0 0 300 90" class="chart-svg" preserveAspectRatio="none">
-            <polyline class="chart-grid-line" points="0,20 300,20"/>
-            <polyline class="chart-grid-line" points="0,45 300,45"/>
-            <polyline class="chart-grid-line" points="0,70 300,70"/>
-            <polyline id="chartLine" class="chart-line" points="0,70 50,62 100,58 150,40 200,35 250,20 300,12"/>
-            <polygon id="chartFill" class="chart-fill" points="0,70 50,62 100,58 150,40 200,35 250,20 300,12 300,90 0,90"/>
-          </svg>
-        </div>
+        <p class="avatar-role">Business Analyst</p>
+        <p class="avatar-location">Available for new roles</p>
       </div>
     </div>
   </div>
+
+  <a href="#about" class="scroll-indicator" aria-label="Scroll to About section">
+    <span></span>
+  </a>
 </section>
 
 <!-- ABOUT -->
 <section class="section" id="about">
-  <div class="section-inner about-grid">
-    <div class="section-head">
-      <span class="section-eyebrow">01 / about</span>
+  <div class="section-inner">
+    <div class="section-head reveal">
+      <span class="section-eyebrow">About</span>
       <h2>The analyst behind the numbers</h2>
     </div>
-    <div class="about-body">
-      <p>I'm a business analyst with a habit of asking "so what does this actually change?" before opening a spreadsheet. Over the past several years I've worked across operations, finance, and product teams — translating ambiguous asks into clear requirements, and clear requirements into things that ship.</p>
-      <p>My edge isn't just the tooling — it's connecting a dashboard number to the decision it should drive, and making sure the people in the room trust it enough to act.</p>
-      <div class="about-facts">
-        <div><span class="fact-num">5+</span><span class="fact-label">years in analysis &amp; strategy roles</span></div>
-        <div><span class="fact-num">3</span><span class="fact-label">industries: retail, fintech, logistics</span></div>
-        <div><span class="fact-num">CBAP</span><span class="fact-label">certified business analysis professional (placeholder)</span></div>
+    <div class="about-grid">
+      <div class="about-body reveal">
+        <p>I'm a business analyst with a habit of asking "so what does this actually change?" before opening a spreadsheet. Over the past several years I've worked across operations, finance, and product teams — translating ambiguous asks into clear requirements, and clear requirements into things that ship.</p>
+        <p>My edge isn't just the tooling — it's connecting a dashboard number to the decision it should drive, and making sure the people in the room trust it enough to act on it.</p>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- SKILLS -->
-<section class="section section-alt" id="skills">
-  <div class="section-inner">
-    <div class="section-head">
-      <span class="section-eyebrow">02 / toolkit</span>
-      <h2>What I work with</h2>
-    </div>
-    <div class="skills-grid">
-      <div class="skill-card">
-        <h3>Data &amp; Analysis</h3>
-        <ul>
-          <li>SQL &amp; relational databases</li>
-          <li>Python (pandas, numpy)</li>
-          <li>Statistical &amp; trend analysis</li>
-          <li>Excel / Power Query</li>
-        </ul>
-      </div>
-      <div class="skill-card">
-        <h3>Visualization &amp; BI</h3>
-        <ul>
-          <li>Power BI</li>
-          <li>Tableau</li>
-          <li>Looker Studio</li>
-          <li>Dashboard design &amp; KPI trees</li>
-        </ul>
-      </div>
-      <div class="skill-card">
-        <h3>Business &amp; Process</h3>
-        <ul>
-          <li>Requirements gathering</li>
-          <li>Process mapping (BPMN)</li>
-          <li>Stakeholder management</li>
-          <li>Agile / Scrum ceremonies</li>
-        </ul>
-      </div>
-      <div class="skill-card">
-        <h3>Tools &amp; Platforms</h3>
-        <ul>
-          <li>JIRA &amp; Confluence</li>
-          <li>Salesforce</li>
-          <li>SAP</li>
-          <li>Miro / Lucidchart</li>
-        </ul>
+      <div class="about-facts reveal">
+        <div class="fact-card">
+          <span class="fact-num">5+</span>
+          <span class="fact-label">Years in analysis &amp; strategy roles</span>
+        </div>
+        <div class="fact-card">
+          <span class="fact-num">3</span>
+          <span class="fact-label">Industries: retail, fintech, logistics</span>
+        </div>
+        <div class="fact-card">
+          <span class="fact-num">CBAP</span>
+          <span class="fact-label">Certified Business Analysis Professional</span>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- EXPERIENCE -->
-<section class="section" id="experience">
+<section class="section section-alt" id="experience">
   <div class="section-inner">
-    <div class="section-head">
-      <span class="section-eyebrow">03 / experience</span>
+    <div class="section-head reveal">
+      <span class="section-eyebrow">Experience</span>
       <h2>Where I've made an impact</h2>
     </div>
+
     <div class="timeline">
-      <div class="timeline-item">
+      <div class="timeline-item reveal">
         <div class="timeline-marker"></div>
         <div class="timeline-content">
           <div class="timeline-top">
@@ -195,7 +149,7 @@
           </ul>
         </div>
       </div>
-      <div class="timeline-item">
+      <div class="timeline-item reveal">
         <div class="timeline-marker"></div>
         <div class="timeline-content">
           <div class="timeline-top">
@@ -210,7 +164,7 @@
           </ul>
         </div>
       </div>
-      <div class="timeline-item">
+      <div class="timeline-item reveal">
         <div class="timeline-marker"></div>
         <div class="timeline-content">
           <div class="timeline-top">
@@ -229,94 +183,275 @@
 </section>
 
 <!-- PROJECTS -->
-<section class="section section-alt" id="projects">
+<section class="section" id="projects">
   <div class="section-inner">
-    <div class="section-head">
-      <span class="section-eyebrow">04 / projects</span>
+    <div class="section-head reveal">
+      <span class="section-eyebrow">Projects</span>
       <h2>Case studies</h2>
     </div>
+
     <div class="projects-grid">
-      <article class="project-card">
-        <div class="project-top">
-          <span class="project-tag">Process Optimization</span>
-          <span class="project-metric">↓ 40% cycle time</span>
+      <article class="project-card reveal">
+        <div class="project-thumb" data-pattern="1" aria-hidden="true"></div>
+        <div class="project-body">
+          <div class="project-top">
+            <span class="project-tag">Process Optimization</span>
+            <span class="project-metric">↓ 40% cycle time</span>
+          </div>
+          <h3>Order Fulfillment Pipeline Redesign</h3>
+          <p>Mapped the end-to-end fulfillment process, found the bottleneck stage, and proposed a revised workflow that cut cycle time significantly.</p>
+          <ul class="project-achievements">
+            <li>Cut average cycle time from 6 days to 3.6 days</li>
+            <li>Rolled out to 3 regional warehouses</li>
+          </ul>
+          <div class="project-tools"><span>BPMN</span><span>SQL</span><span>Power BI</span></div>
+          <a href="#" class="project-link">View case study
+            <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
+          </a>
         </div>
-        <h3>Order Fulfillment Pipeline Redesign</h3>
-        <p>Mapped the end-to-end fulfillment process, found the bottleneck stage, and proposed a revised workflow that cut cycle time significantly.</p>
-        <div class="project-tools"><span>BPMN</span><span>SQL</span><span>Power BI</span></div>
-        <a href="#" class="project-link">View case study →</a>
       </article>
-      <article class="project-card">
-        <div class="project-top">
-          <span class="project-tag">Dashboard Build</span>
-          <span class="project-metric">1 source of truth</span>
+
+      <article class="project-card reveal">
+        <div class="project-thumb" data-pattern="2" aria-hidden="true"></div>
+        <div class="project-body">
+          <div class="project-top">
+            <span class="project-tag">Dashboard Build</span>
+            <span class="project-metric">1 source of truth</span>
+          </div>
+          <h3>Executive KPI Dashboard</h3>
+          <p>Consolidated five disconnected spreadsheets into a single live dashboard that leadership now checks weekly instead of requesting ad-hoc reports.</p>
+          <ul class="project-achievements">
+            <li>Eliminated ~8 hours/week of manual report building</li>
+            <li>Adopted by 3 executive stakeholders as default reporting view</li>
+          </ul>
+          <div class="project-tools"><span>Power BI</span><span>DAX</span><span>Stakeholder Interviews</span></div>
+          <a href="#" class="project-link">View case study
+            <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
+          </a>
         </div>
-        <h3>Executive KPI Dashboard</h3>
-        <p>Consolidated five disconnected spreadsheets into a single live dashboard that leadership now checks weekly instead of requesting ad-hoc reports.</p>
-        <div class="project-tools"><span>Power BI</span><span>DAX</span><span>Stakeholder Interviews</span></div>
-        <a href="#" class="project-link">View case study →</a>
       </article>
-      <article class="project-card">
-        <div class="project-top">
-          <span class="project-tag">Requirements &amp; Rollout</span>
-          <span class="project-metric">4 teams aligned</span>
+
+      <article class="project-card reveal">
+        <div class="project-thumb" data-pattern="3" aria-hidden="true"></div>
+        <div class="project-body">
+          <div class="project-top">
+            <span class="project-tag">Requirements &amp; Rollout</span>
+            <span class="project-metric">4 teams aligned</span>
+          </div>
+          <h3>CRM Requirements &amp; Rollout Plan</h3>
+          <p>Ran discovery across four departments with conflicting needs, then wrote the requirements doc that got sign-off from all of them in one round.</p>
+          <ul class="project-achievements">
+            <li>Zero re-scoping requests after sign-off</li>
+            <li>Delivered 2 weeks ahead of schedule</li>
+          </ul>
+          <div class="project-tools"><span>JIRA</span><span>Confluence</span><span>Workshops</span></div>
+          <a href="#" class="project-link">View case study
+            <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
+          </a>
         </div>
-        <h3>CRM Requirements &amp; Rollout Plan</h3>
-        <p>Ran discovery across four departments with conflicting needs, then wrote the requirements doc that got sign-off from all of them in one round.</p>
-        <div class="project-tools"><span>JIRA</span><span>Confluence</span><span>Workshops</span></div>
-        <a href="#" class="project-link">View case study →</a>
       </article>
-      <article class="project-card">
-        <div class="project-top">
-          <span class="project-tag">Pricing Analysis</span>
-          <span class="project-metric">A/B tested</span>
+
+      <article class="project-card reveal">
+        <div class="project-thumb" data-pattern="4" aria-hidden="true"></div>
+        <div class="project-body">
+          <div class="project-top">
+            <span class="project-tag">Pricing Analysis</span>
+            <span class="project-metric">A/B tested</span>
+          </div>
+          <h3>Pricing Model Experiment</h3>
+          <p>Designed and analyzed an A/B test on a proposed pricing tier, presenting findings that shaped the final go-to-market decision.</p>
+          <ul class="project-achievements">
+            <li>Ran test across 40k+ users with 95% confidence</li>
+            <li>Findings adopted directly into GTM pricing</li>
+          </ul>
+          <div class="project-tools"><span>Python</span><span>Statistics</span><span>Tableau</span></div>
+          <a href="#" class="project-link">View case study
+            <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
+          </a>
         </div>
-        <h3>Pricing Model Experiment</h3>
-        <p>Designed and analyzed an A/B test on a proposed pricing tier, presenting findings that shaped the final go-to-market decision.</p>
-        <div class="project-tools"><span>Python</span><span>Statistics</span><span>Tableau</span></div>
-        <a href="#" class="project-link">View case study →</a>
       </article>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="section section-alt" id="skills">
+  <div class="section-inner">
+    <div class="section-head reveal">
+      <span class="section-eyebrow">Skills</span>
+      <h2>What I work with</h2>
+    </div>
+
+    <div class="skills-grid">
+      <div class="skill-card reveal">
+        <div class="skill-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.66 3.58 3 8 3s8-1.34 8-3V5"/><path d="M4 12c0 1.66 3.58 3 8 3s8-1.34 8-3"/></svg>
+        </div>
+        <h3>Data &amp; Analysis</h3>
+        <div class="skill-badges">
+          <span>SQL</span><span>Python</span><span>Pandas</span><span>Statistics</span><span>Excel</span>
+        </div>
+      </div>
+
+      <div class="skill-card reveal">
+        <div class="skill-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 3v18h18"/><rect x="7" y="12" width="3" height="6"/><rect x="12" y="8" width="3" height="10"/><rect x="17" y="5" width="3" height="13"/></svg>
+        </div>
+        <h3>Visualization &amp; BI</h3>
+        <div class="skill-badges">
+          <span>Power BI</span><span>Tableau</span><span>Looker Studio</span><span>KPI Design</span>
+        </div>
+      </div>
+
+      <div class="skill-card reveal">
+        <div class="skill-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 17h7M17.5 14v7"/></svg>
+        </div>
+        <h3>Business &amp; Process</h3>
+        <div class="skill-badges">
+          <span>Requirements</span><span>BPMN</span><span>Stakeholder Mgmt</span><span>Agile/Scrum</span>
+        </div>
+      </div>
+
+      <div class="skill-card reveal">
+        <div class="skill-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 11-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06A1.65 1.65 0 004.6 15a1.65 1.65 0 00-1.51-1H3a2 2 0 110-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06A1.65 1.65 0 009 4.6a1.65 1.65 0 001-1.51V3a2 2 0 114 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 110 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+        </div>
+        <h3>Tools &amp; Platforms</h3>
+        <div class="skill-badges">
+          <span>JIRA</span><span>Confluence</span><span>Salesforce</span><span>SAP</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section class="section" id="education">
+  <div class="section-inner">
+    <div class="section-head reveal">
+      <span class="section-eyebrow">Education</span>
+      <h2>Academic background</h2>
+    </div>
+    <div class="edu-grid">
+      <div class="edu-card reveal">
+        <div class="edu-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.66 2.69 3 6 3s6-1.34 6-3v-5"/></svg>
+        </div>
+        <div>
+          <h3>B.Sc. in Business Administration &amp; Analytics</h3>
+          <p class="edu-org">University Name · Placeholder</p>
+          <p class="edu-date">2015 — 2019</p>
+          <p class="edu-desc">Focus on quantitative methods, statistics, and information systems. Graduated with honors.</p>
+        </div>
+      </div>
+      <div class="edu-card reveal">
+        <div class="edu-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.66 2.69 3 6 3s6-1.34 6-3v-5"/></svg>
+        </div>
+        <div>
+          <h3>Postgraduate Certificate in Data Analytics</h3>
+          <p class="edu-org">Institute Name · Placeholder</p>
+          <p class="edu-date">2020</p>
+          <p class="edu-desc">Applied coursework in SQL, statistical modeling, and business intelligence tooling.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section class="section section-alt" id="certifications">
+  <div class="section-inner">
+    <div class="section-head reveal">
+      <span class="section-eyebrow">Certifications</span>
+      <h2>Credentials</h2>
+    </div>
+    <div class="cert-grid">
+      <div class="cert-card reveal">
+        <div class="cert-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="6"/><path d="M9 14.5L7 22l5-3 5 3-2-7.5"/></svg>
+        </div>
+        <h3>CBAP — Certified Business Analysis Professional</h3>
+        <p class="cert-org">IIBA · Placeholder Year</p>
+      </div>
+      <div class="cert-card reveal">
+        <div class="cert-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="6"/><path d="M9 14.5L7 22l5-3 5 3-2-7.5"/></svg>
+        </div>
+        <h3>PL-300: Microsoft Power BI Data Analyst</h3>
+        <p class="cert-org">Microsoft · Placeholder Year</p>
+      </div>
+      <div class="cert-card reveal">
+        <div class="cert-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="6"/><path d="M9 14.5L7 22l5-3 5 3-2-7.5"/></svg>
+        </div>
+        <h3>Professional Scrum Master I (PSM I)</h3>
+        <p class="cert-org">Scrum.org · Placeholder Year</p>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- CONTACT -->
 <section class="section contact" id="contact">
-  <div class="section-inner contact-inner">
-    <div class="section-head">
-      <span class="section-eyebrow">05 / contact</span>
+  <div class="section-inner">
+    <div class="section-head reveal center">
+      <span class="section-eyebrow">Contact</span>
       <h2>Let's talk data, process, or the next role</h2>
       <p class="contact-sub">Open to business analyst and analytics roles. The fastest way to reach me is email — I'll usually reply within a day.</p>
-      <div class="contact-links">
-        <a href="mailto:alex.morgan@example.com">alex.morgan@example.com</a>
-        <a href="#">linkedin.com/in/alexmorgan</a>
-        <a href="#">github.com/alexmorgan</a>
-      </div>
     </div>
 
-    <form class="contact-form" id="contactForm">
-      <label>
-        <span>Name</span>
-        <input type="text" name="name" placeholder="Your name" required>
-      </label>
-      <label>
+    <div class="contact-grid reveal">
+      <a href="mailto:alex.morgan@example.com" class="contact-card">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6l-10 7L2 6"/></svg>
         <span>Email</span>
-        <input type="email" name="email" placeholder="you@company.com" required>
-      </label>
+        <small>alex.morgan@example.com</small>
+      </a>
+      <a href="#" class="contact-card">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-4 0v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        <span>LinkedIn</span>
+        <small>linkedin.com/in/alexmorgan</small>
+      </a>
+      <a href="#" class="contact-card">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+        <span>GitHub</span>
+        <small>github.com/alexmorgan</small>
+      </a>
+      <a href="#" class="contact-card" id="resumeCard">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v12m0 0l-4-4m4 4l4-4"/><path d="M3 17v2a2 2 0 002 2h14a2 2 0 002-2v-2"/></svg>
+        <span>Résumé</span>
+        <small>Download PDF</small>
+      </a>
+    </div>
+
+    <form class="contact-form reveal" id="contactForm">
+      <div class="form-row">
+        <label>
+          <span>Name</span>
+          <input type="text" name="name" placeholder="Your name" required>
+        </label>
+        <label>
+          <span>Email</span>
+          <input type="email" name="email" placeholder="you@company.com" required>
+        </label>
+      </div>
       <label>
         <span>Message</span>
         <textarea name="message" rows="4" placeholder="What are you working on?" required></textarea>
       </label>
-      <button type="submit" class="btn btn-primary full">Send message</button>
+      <button type="submit" class="btn btn-primary full">Send Message</button>
       <p class="form-note" id="formNote">This form is a static placeholder — wire it up to Formspree, EmailJS, or an API route once deployed.</p>
     </form>
   </div>
 </section>
 
+</main>
+
 <footer class="footer">
   <div class="section-inner footer-inner">
-    <span>© <span id="year"></span> Alex Morgan. Built with a dark terminal and too much coffee.</span>
-    <a href="#top">back to top ↑</a>
+    <span>© <span id="year"></span> Alex Morgan. All rights reserved.</span>
+    <a href="#top">Back to top ↑</a>
   </div>
 </footer>
 
