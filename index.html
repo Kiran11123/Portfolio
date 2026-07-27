@@ -6,56 +6,48 @@
 <title>Alex Morgan — Business Analyst &amp; Data Analytics</title>
 <meta name="description" content="Business Analyst &amp; Data Analytics portfolio — data-driven decisions, process transformation, and analytics.">
 
-<script>
-  (function(){
-    var saved = localStorage.getItem('theme');
-    document.documentElement.setAttribute('data-theme', saved || 'dark');
-  })();
-</script>
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link href="https://api.fontshare.com/v2/css?f[]=chillax@400,500,600,700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <a href="#main" class="skip-link">Skip to main content</a>
-
-<!-- Ambient / interaction layers -->
-<div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
-<div class="bg-noise" aria-hidden="true"></div>
-<div class="bg-grid" aria-hidden="true"></div>
-<div class="bg-mesh" aria-hidden="true"></div>
+<div class="bg-dots" aria-hidden="true"></div>
 
 <!-- NAV -->
 <header class="nav" id="nav">
   <div class="nav-inner">
-    <a href="#top" class="logo">AM<span class="logo-full">alex morgan</span></a>
-
+    <a href="#top" class="logo">ALEX MORGAN<span class="logo-dot">●</span></a>
     <nav class="nav-links" id="navLinks" aria-label="Primary">
       <a href="#about" data-nav>About</a>
       <a href="#experience" data-nav>Experience</a>
       <a href="#projects" data-nav>Projects</a>
       <a href="#skills" data-nav>Skills</a>
       <a href="#education" data-nav>Education</a>
-      <a href="#certifications" data-nav>Certifications</a>
+      <a href="#certifications" data-nav>Certs</a>
       <a href="#contact" data-nav>Contact</a>
     </nav>
-
-    <div class="nav-actions">
-      <button class="theme-toggle" id="themeToggle" aria-label="Switch to light mode" aria-pressed="false">
-        <i data-lucide="sun" class="icon icon-sun"></i>
-        <i data-lucide="moon" class="icon icon-moon"></i>
-      </button>
-      <a href="#contact" class="btn btn-primary btn-sm magnetic"><span>Let's talk</span></a>
-      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
+    <a href="#contact" class="btn btn-primary btn-sm">Let's talk →</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </header>
+
+<!-- MARQUEE -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>BUSINESS ANALYST</span><span>★</span><span>DATA &amp; AI</span><span>★</span>
+    <span>PROCESS TRANSFORMATION</span><span>★</span><span>DASHBOARDS</span><span>★</span>
+    <span>STAKEHOLDER MANAGEMENT</span><span>★</span><span>OPEN TO WORK</span><span>★</span>
+    <span>BUSINESS ANALYST</span><span>★</span><span>DATA &amp; AI</span><span>★</span>
+    <span>PROCESS TRANSFORMATION</span><span>★</span><span>DASHBOARDS</span><span>★</span>
+    <span>STAKEHOLDER MANAGEMENT</span><span>★</span><span>OPEN TO WORK</span><span>★</span>
+  </div>
+</div>
 
 <main id="main">
 
@@ -63,75 +55,50 @@
 <section class="hero" id="top">
   <div class="hero-inner">
     <div class="hero-text">
-      <p class="eyebrow reveal">Business Analyst · Data &amp; AI · Digital Transformation</p>
-      <h1 class="headline">
-        <span class="line"><span class="word">Turning</span> <span class="word">complex</span> <span class="word">data</span></span>
-        <span class="line"><span class="word">into</span> <span class="word word-ghost">confident</span> <span class="word word-ghost">decisions.</span></span>
-      </h1>
-      <p class="hero-sub reveal">I'm Alex Morgan — I bridge raw data and business strategy, building the dashboards, requirements, and process fixes that leadership actually trusts.</p>
-      <div class="hero-actions reveal">
-        <a href="#projects" class="btn btn-primary magnetic"><span>View Projects</span></a>
-        <a href="#" class="btn btn-secondary magnetic" id="resumeBtn"><span>Download Résumé</span></a>
+      <p class="eyebrow">Business Analyst · Data &amp; AI</p>
+      <h1>Data has a story.<br>I make sure <span class="highlight">leadership<span class="highlight-mark"></span></span> hears it.</h1>
+      <p class="hero-sub">I'm Alex Morgan — I turn messy spreadsheets and messier requirements into dashboards, decisions, and process fixes that actually stick.</p>
+      <div class="hero-actions">
+        <a href="#projects" class="btn btn-primary">View Projects</a>
+        <a href="#" class="btn btn-secondary" id="resumeBtn">Download Résumé ↓</a>
       </div>
-      <div class="hero-stats reveal">
-        <div><span class="stat-num" data-count="5">0</span><span class="stat-label">Years Experience</span></div>
-        <div><span class="stat-num" data-count="2.4" data-prefix="$" data-suffix="M">$0M</span><span class="stat-label">Value Delivered</span></div>
-        <div><span class="stat-num" data-count="12" data-suffix="+">0+</span><span class="stat-label">Projects Shipped</span></div>
+      <div class="hero-stats">
+        <div><span class="stat-num" data-count="5">0</span><span class="stat-label">Years<br>Experience</span></div>
+        <div><span class="stat-num" data-count="2.4" data-prefix="$" data-suffix="M">$0M</span><span class="stat-label">Value<br>Delivered</span></div>
+        <div><span class="stat-num" data-count="12" data-suffix="+">0+</span><span class="stat-label">Projects<br>Shipped</span></div>
       </div>
     </div>
 
-    <div class="hero-visual reveal">
-      <div class="scene parallax" data-speed="0.15">
-        <div class="cube" id="cube">
-          <div class="face front"></div>
-          <div class="face back"></div>
-          <div class="face right"></div>
-          <div class="face left"></div>
-          <div class="face top"></div>
-          <div class="face bottom"></div>
+    <div class="hero-visual">
+      <div class="hero-frame">
+        <div class="avatar-block">
+          <span class="avatar-initials">AM</span>
         </div>
-        <div class="ring ring-1"></div>
-        <div class="ring ring-2"></div>
-        <div class="glass-shard shard-1 parallax" data-speed="0.3"></div>
-        <div class="glass-shard shard-2 parallax" data-speed="-0.2"></div>
-
-        <div class="avatar-card" data-tilt>
-          <div class="avatar-ring">
-            <span class="avatar-initials">AM</span>
-          </div>
-          <p class="avatar-role">Business Analyst</p>
-          <p class="avatar-location">Available for new roles</p>
-        </div>
+        <div class="sticker sticker-1">Open to<br>work</div>
+        <div class="shape-ring"></div>
+        <div class="shape-tri"></div>
       </div>
     </div>
   </div>
-
-  <a href="#about" class="scroll-indicator" aria-label="Scroll to About section">
-    <span></span>
-  </a>
 </section>
 
 <!-- ABOUT -->
 <section class="section" id="about">
   <div class="section-inner about-layout">
-    <div class="about-media reveal">
-      <div class="glass-panel about-panel" data-tilt>
-        <span class="avatar-initials-lg">AM</span>
-      </div>
-      <div class="floating-fact reveal" data-tilt>
-        <span class="fact-num">5+</span>
-        <span class="fact-label">Years in analysis &amp; strategy</span>
-      </div>
+    <div class="section-tag reveal">
+      <span class="tag-num">01</span>
+      <span class="section-eyebrow">About</span>
     </div>
-
-    <div class="about-copy">
-      <span class="section-eyebrow reveal">About</span>
-      <h2 class="reveal">The analyst behind the numbers</h2>
-      <p class="reveal">I'm a business analyst with a habit of asking "so what does this actually change?" before opening a spreadsheet. Over the past several years I've worked across operations, finance, and product teams — translating ambiguous asks into clear requirements, and clear requirements into things that ship.</p>
-      <p class="reveal">My edge isn't just the tooling — it's connecting a dashboard number to the decision it should drive, and making sure the people in the room trust it enough to act on it.</p>
-      <div class="about-facts">
-        <div class="fact-chip reveal"><span class="fact-num">3</span><span class="fact-label">Industries: retail, fintech, logistics</span></div>
-        <div class="fact-chip reveal"><span class="fact-num">CBAP</span><span class="fact-label">Certified Business Analysis Professional</span></div>
+    <div class="about-grid">
+      <h2 class="reveal">The analyst<br>behind the numbers.</h2>
+      <div class="about-copy">
+        <p class="reveal">I'm a business analyst with a habit of asking "so what does this actually change?" before opening a spreadsheet. Over the past several years I've worked across operations, finance, and product teams — translating ambiguous asks into clear requirements, and clear requirements into things that ship.</p>
+        <p class="reveal">My edge isn't just the tooling — it's connecting a dashboard number to the decision it should drive, and making sure the people in the room trust it enough to act on it.</p>
+        <div class="about-facts">
+          <div class="fact-card reveal"><span class="fact-num">5+</span><span class="fact-label">Years in analysis &amp; strategy</span></div>
+          <div class="fact-card reveal"><span class="fact-num">3</span><span class="fact-label">Industries: retail, fintech, logistics</span></div>
+          <div class="fact-card reveal"><span class="fact-num">CBAP</span><span class="fact-label">Certified Business Analysis Pro</span></div>
+        </div>
       </div>
     </div>
   </div>
@@ -140,15 +107,16 @@
 <!-- EXPERIENCE -->
 <section class="section section-alt" id="experience">
   <div class="section-inner">
-    <div class="section-head reveal">
+    <div class="section-tag reveal">
+      <span class="tag-num">02</span>
       <span class="section-eyebrow">Experience</span>
-      <h2>Where I've made an impact</h2>
     </div>
+    <h2 class="reveal">Where I've made an impact.</h2>
 
     <div class="timeline">
       <div class="timeline-item reveal">
         <div class="timeline-marker"></div>
-        <div class="timeline-content glass-card" data-tilt>
+        <div class="timeline-content">
           <div class="timeline-top">
             <h3>Senior Business Analyst</h3>
             <span class="timeline-date">2023 — Present</span>
@@ -163,7 +131,7 @@
       </div>
       <div class="timeline-item reveal">
         <div class="timeline-marker"></div>
-        <div class="timeline-content glass-card" data-tilt>
+        <div class="timeline-content">
           <div class="timeline-top">
             <h3>Business Analyst</h3>
             <span class="timeline-date">2021 — 2023</span>
@@ -178,7 +146,7 @@
       </div>
       <div class="timeline-item reveal">
         <div class="timeline-marker"></div>
-        <div class="timeline-content glass-card" data-tilt>
+        <div class="timeline-content">
           <div class="timeline-top">
             <h3>Junior Analyst</h3>
             <span class="timeline-date">2019 — 2021</span>
@@ -197,14 +165,15 @@
 <!-- PROJECTS -->
 <section class="section" id="projects">
   <div class="section-inner">
-    <div class="section-head reveal">
+    <div class="section-tag reveal">
+      <span class="tag-num">03</span>
       <span class="section-eyebrow">Projects</span>
-      <h2>Case studies</h2>
     </div>
+    <h2 class="reveal">Case studies.</h2>
 
     <div class="projects-grid">
-      <article class="project-card reveal" data-tilt>
-        <div class="project-thumb" data-pattern="1" aria-hidden="true"><span class="project-badge">Process Optimization</span></div>
+      <article class="project-card reveal">
+        <div class="project-thumb" data-pattern="1"><span class="project-badge">Process Optimization</span></div>
         <div class="project-body">
           <div class="project-top">
             <h3>Order Fulfillment Pipeline Redesign</h3>
@@ -216,12 +185,12 @@
             <li>Rolled out to 3 regional warehouses</li>
           </ul>
           <div class="project-tools"><span>BPMN</span><span>SQL</span><span>Power BI</span></div>
-          <a href="#" class="project-link"><span>View case study</span><i data-lucide="arrow-up-right" class="icon-sm"></i></a>
+          <a href="#" class="project-link">View case study →</a>
         </div>
       </article>
 
-      <article class="project-card reveal" data-tilt>
-        <div class="project-thumb" data-pattern="2" aria-hidden="true"><span class="project-badge">Dashboard Build</span></div>
+      <article class="project-card reveal">
+        <div class="project-thumb" data-pattern="2"><span class="project-badge">Dashboard Build</span></div>
         <div class="project-body">
           <div class="project-top">
             <h3>Executive KPI Dashboard</h3>
@@ -233,12 +202,12 @@
             <li>Adopted by 3 executive stakeholders as default reporting view</li>
           </ul>
           <div class="project-tools"><span>Power BI</span><span>DAX</span><span>Interviews</span></div>
-          <a href="#" class="project-link"><span>View case study</span><i data-lucide="arrow-up-right" class="icon-sm"></i></a>
+          <a href="#" class="project-link">View case study →</a>
         </div>
       </article>
 
-      <article class="project-card reveal" data-tilt>
-        <div class="project-thumb" data-pattern="3" aria-hidden="true"><span class="project-badge">Requirements</span></div>
+      <article class="project-card reveal">
+        <div class="project-thumb" data-pattern="3"><span class="project-badge">Requirements</span></div>
         <div class="project-body">
           <div class="project-top">
             <h3>CRM Requirements &amp; Rollout Plan</h3>
@@ -250,12 +219,12 @@
             <li>Delivered 2 weeks ahead of schedule</li>
           </ul>
           <div class="project-tools"><span>JIRA</span><span>Confluence</span><span>Workshops</span></div>
-          <a href="#" class="project-link"><span>View case study</span><i data-lucide="arrow-up-right" class="icon-sm"></i></a>
+          <a href="#" class="project-link">View case study →</a>
         </div>
       </article>
 
-      <article class="project-card reveal" data-tilt>
-        <div class="project-thumb" data-pattern="4" aria-hidden="true"><span class="project-badge">Pricing Analysis</span></div>
+      <article class="project-card reveal">
+        <div class="project-thumb" data-pattern="4"><span class="project-badge">Pricing Analysis</span></div>
         <div class="project-body">
           <div class="project-top">
             <h3>Pricing Model Experiment</h3>
@@ -267,7 +236,7 @@
             <li>Findings adopted directly into GTM pricing</li>
           </ul>
           <div class="project-tools"><span>Python</span><span>Statistics</span><span>Tableau</span></div>
-          <a href="#" class="project-link"><span>View case study</span><i data-lucide="arrow-up-right" class="icon-sm"></i></a>
+          <a href="#" class="project-link">View case study →</a>
         </div>
       </article>
     </div>
@@ -277,35 +246,32 @@
 <!-- SKILLS -->
 <section class="section section-alt" id="skills">
   <div class="section-inner">
-    <div class="section-head reveal">
+    <div class="section-tag reveal">
+      <span class="tag-num">04</span>
       <span class="section-eyebrow">Skills</span>
-      <h2>What I work with</h2>
     </div>
+    <h2 class="reveal">What I work with.</h2>
 
     <div class="skills-grid">
-      <div class="skill-card reveal" data-tilt>
-        <i data-lucide="database" class="skill-icon"></i>
+      <div class="skill-card reveal">
         <h3>Data &amp; Analysis</h3>
         <div class="skill-badges">
           <span>SQL</span><span>Python</span><span>Pandas</span><span>Statistics</span><span>Excel</span>
         </div>
       </div>
-      <div class="skill-card reveal" data-tilt>
-        <i data-lucide="bar-chart-3" class="skill-icon"></i>
+      <div class="skill-card reveal">
         <h3>Visualization &amp; BI</h3>
         <div class="skill-badges">
           <span>Power BI</span><span>Tableau</span><span>Looker Studio</span><span>KPI Design</span>
         </div>
       </div>
-      <div class="skill-card reveal" data-tilt>
-        <i data-lucide="workflow" class="skill-icon"></i>
+      <div class="skill-card reveal">
         <h3>Business &amp; Process</h3>
         <div class="skill-badges">
           <span>Requirements</span><span>BPMN</span><span>Stakeholder Mgmt</span><span>Agile/Scrum</span>
         </div>
       </div>
-      <div class="skill-card reveal" data-tilt>
-        <i data-lucide="settings-2" class="skill-icon"></i>
+      <div class="skill-card reveal">
         <h3>Tools &amp; Platforms</h3>
         <div class="skill-badges">
           <span>JIRA</span><span>Confluence</span><span>Salesforce</span><span>SAP</span>
@@ -318,28 +284,23 @@
 <!-- EDUCATION -->
 <section class="section" id="education">
   <div class="section-inner">
-    <div class="section-head reveal">
+    <div class="section-tag reveal">
+      <span class="tag-num">05</span>
       <span class="section-eyebrow">Education</span>
-      <h2>Academic background</h2>
     </div>
+    <h2 class="reveal">Academic background.</h2>
     <div class="edu-grid">
-      <div class="edu-card glass-card reveal" data-tilt>
-        <i data-lucide="graduation-cap" class="edu-icon"></i>
-        <div>
-          <h3>B.Sc. in Business Administration &amp; Analytics</h3>
-          <p class="edu-org">University Name · Placeholder</p>
-          <p class="edu-date">2015 — 2019</p>
-          <p class="edu-desc">Focus on quantitative methods, statistics, and information systems. Graduated with honors.</p>
-        </div>
+      <div class="edu-card reveal">
+        <h3>B.Sc. in Business Administration &amp; Analytics</h3>
+        <p class="edu-org">University Name · Placeholder</p>
+        <p class="edu-date">2015 — 2019</p>
+        <p class="edu-desc">Focus on quantitative methods, statistics, and information systems. Graduated with honors.</p>
       </div>
-      <div class="edu-card glass-card reveal" data-tilt>
-        <i data-lucide="graduation-cap" class="edu-icon"></i>
-        <div>
-          <h3>Postgraduate Certificate in Data Analytics</h3>
-          <p class="edu-org">Institute Name · Placeholder</p>
-          <p class="edu-date">2020</p>
-          <p class="edu-desc">Applied coursework in SQL, statistical modeling, and business intelligence tooling.</p>
-        </div>
+      <div class="edu-card reveal">
+        <h3>Postgraduate Certificate in Data Analytics</h3>
+        <p class="edu-org">Institute Name · Placeholder</p>
+        <p class="edu-date">2020</p>
+        <p class="edu-desc">Applied coursework in SQL, statistical modeling, and business intelligence tooling.</p>
       </div>
     </div>
   </div>
@@ -348,23 +309,24 @@
 <!-- CERTIFICATIONS -->
 <section class="section section-alt" id="certifications">
   <div class="section-inner">
-    <div class="section-head reveal">
+    <div class="section-tag reveal">
+      <span class="tag-num">06</span>
       <span class="section-eyebrow">Certifications</span>
-      <h2>Credentials</h2>
     </div>
+    <h2 class="reveal">Credentials.</h2>
     <div class="cert-grid">
-      <div class="cert-card glass-card reveal" data-tilt>
-        <i data-lucide="award" class="cert-badge"></i>
+      <div class="cert-card reveal">
+        <span class="cert-star">★</span>
         <h3>CBAP — Certified Business Analysis Professional</h3>
         <p class="cert-org">IIBA · Placeholder Year</p>
       </div>
-      <div class="cert-card glass-card reveal" data-tilt>
-        <i data-lucide="award" class="cert-badge"></i>
+      <div class="cert-card reveal">
+        <span class="cert-star">★</span>
         <h3>PL-300: Microsoft Power BI Data Analyst</h3>
         <p class="cert-org">Microsoft · Placeholder Year</p>
       </div>
-      <div class="cert-card glass-card reveal" data-tilt>
-        <i data-lucide="award" class="cert-badge"></i>
+      <div class="cert-card reveal">
+        <span class="cert-star">★</span>
         <h3>Professional Scrum Master I (PSM I)</h3>
         <p class="cert-org">Scrum.org · Placeholder Year</p>
       </div>
@@ -375,36 +337,33 @@
 <!-- CONTACT -->
 <section class="section contact" id="contact">
   <div class="section-inner">
-    <div class="section-head reveal center">
+    <div class="section-tag reveal center">
+      <span class="tag-num">07</span>
       <span class="section-eyebrow">Contact</span>
-      <h2>Let's talk data, process, or the next role</h2>
-      <p class="contact-sub">Open to business analyst and analytics roles. The fastest way to reach me is email — I'll usually reply within a day.</p>
     </div>
+    <h2 class="reveal center">Let's talk data,<br>process, or the next role.</h2>
+    <p class="contact-sub reveal">Open to business analyst and analytics roles. The fastest way to reach me is email — I'll usually reply within a day.</p>
 
     <div class="contact-grid reveal">
-      <a href="mailto:alex.morgan@example.com" class="contact-card glass-card magnetic" data-tilt>
-        <i data-lucide="mail" class="icon"></i>
+      <a href="mailto:alex.morgan@example.com" class="contact-card">
         <span>Email</span>
         <small>alex.morgan@example.com</small>
       </a>
-      <a href="#" class="contact-card glass-card magnetic" data-tilt>
-        <i data-lucide="linkedin" class="icon"></i>
+      <a href="#" class="contact-card">
         <span>LinkedIn</span>
         <small>linkedin.com/in/alexmorgan</small>
       </a>
-      <a href="#" class="contact-card glass-card magnetic" data-tilt>
-        <i data-lucide="github" class="icon"></i>
+      <a href="#" class="contact-card">
         <span>GitHub</span>
         <small>github.com/alexmorgan</small>
       </a>
-      <a href="#" class="contact-card glass-card magnetic" id="resumeCard" data-tilt>
-        <i data-lucide="download" class="icon"></i>
+      <a href="#" class="contact-card" id="resumeCard">
         <span>Résumé</span>
         <small>Download PDF</small>
       </a>
     </div>
 
-    <form class="contact-form glass-card reveal" id="contactForm">
+    <form class="contact-form reveal" id="contactForm">
       <div class="form-row">
         <label>
           <span>Name</span>
@@ -419,7 +378,7 @@
         <span>Message</span>
         <textarea name="message" rows="4" placeholder="What are you working on?" required></textarea>
       </label>
-      <button type="submit" class="btn btn-primary full magnetic"><span>Send Message</span></button>
+      <button type="submit" class="btn btn-primary full">Send Message</button>
       <p class="form-note" id="formNote">This form is a static placeholder — wire it up to Formspree, EmailJS, or an API route once deployed.</p>
     </form>
   </div>
@@ -434,7 +393,6 @@
   </div>
 </footer>
 
-<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 <script src="script.js"></script>
 </body>
 </html>
