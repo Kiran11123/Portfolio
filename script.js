@@ -166,7 +166,7 @@ flipAvatar.addEventListener('click', () => flipAvatar.classList.toggle('flipped'
   window.addEventListener('touchend', end);
 })();
 
-/* ---------- Accordion (experience) ---------- */
+/* ---------- Accordion (work experience) ---------- */
 document.querySelectorAll('.accordion-head').forEach(head => {
   head.addEventListener('click', () => {
     const item = head.closest('.accordion-item');
@@ -176,88 +176,12 @@ document.querySelectorAll('.accordion-head').forEach(head => {
   });
 });
 
-/* ---------- Project filter ---------- */
-const filterBtns = document.querySelectorAll('.filter-btn');
-const projectCards = document.querySelectorAll('.project-card');
-filterBtns.forEach(btn => {
-  btn.addEventListener('click', () => {
-    filterBtns.forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    const filter = btn.dataset.filter;
-    projectCards.forEach(card => {
-      const match = filter === 'all' || card.dataset.category === filter;
-      card.classList.toggle('hidden', !match);
-    });
-  });
-});
-
-/* ---------- Project modal ---------- */
-const projectsData = {
-  1: { tag: 'Process Automation', title: 'Co-Manufacturer Reporting Automation', desc: 'Automated monthly co-manufacturer performance reporting at Danone, replacing manual spreadsheet handling with a Power BI + Power Query pipeline built on clean data modeling.', achievements: ['Cut manual processing time by ~90% and eliminated reporting errors', 'Added slicers, tooltips, and drill-through for detailed performance analysis', 'Defined KPIs with stakeholders for compliance and quality monitoring'], tools: ['Power BI','Power Query (M)','DAX'] },
-  2: { tag: 'Dashboard Build', title: 'Jira-Integrated Capacity Dashboard', desc: 'Built a Power BI dashboard integrated with Jira at GoodHabitz for real-time visibility into workload, sprint planning, and team capacity, backed by structured stakeholder research.', achievements: ['Applied Design Based Working (DBW) to iterate lo-fi → hi-fi prototypes', 'Ran Stakeholder & Socio-Technical Analysis to align solution with context', 'Executed a Digital Readiness Assessment ahead of rollout'], tools: ['Power BI','Jira','DBW Prototyping'] },
-  3: { tag: 'Python Automation', title: 'Job Development Automation Script', desc: 'Built a Python script at TCS automating a major part of the job development process, addressing a key inefficiency identified through stakeholder analysis.', achievements: ['Reduced job development time by 85%', 'Eliminated manual errors in the process', 'Delivered early and deployed during the client transition phase'], tools: ['Python','SQL','Linux'] },
-  4: { tag: 'Product Strategy', title: 'Tikdin Product Vision & Prioritization', desc: 'Defined the product vision for Tikdin during a product management bootcamp, grounding prioritization decisions in real user research rather than guesswork.', achievements: ['Tracked the North Star Metric using Amplitude', 'Conducted user interviews and analyzed product stickiness', 'Ran RICE Analysis to prioritize features in the Product Requirement Document'], tools: ['Amplitude','RICE Analysis','User Research'] }
-};
-
-const modalOverlay = document.getElementById('modalOverlay');
-const modalTag = document.getElementById('modalTag');
-const modalTitle = document.getElementById('modalTitle');
-const modalDesc = document.getElementById('modalDesc');
-const modalAchievements = document.getElementById('modalAchievements');
-const modalTools = document.getElementById('modalTools');
-
-function openModal(id){
-  const data = projectsData[id];
-  if (!data) return;
-  modalTag.textContent = data.tag;
-  modalTitle.textContent = data.title;
-  modalDesc.textContent = data.desc;
-  modalAchievements.innerHTML = data.achievements.map(a => `<li>${a}</li>`).join('');
-  modalTools.innerHTML = data.tools.map(t => `<span>${t}</span>`).join('');
-  modalOverlay.classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-function closeModal(){
-  modalOverlay.classList.remove('open');
-  document.body.style.overflow = '';
-}
-document.querySelectorAll('[data-open-modal]').forEach(btn => {
-  btn.addEventListener('click', () => openModal(btn.dataset.openModal));
-});
-document.getElementById('modalClose').addEventListener('click', closeModal);
-modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) closeModal(); });
-window.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
-
 /* ---------- Skill flip cards ---------- */
 document.querySelectorAll('.flip-card').forEach(card => {
   function toggle(){ card.classList.toggle('flipped'); }
   card.addEventListener('click', toggle);
   card.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); } });
 });
-
-/* ---------- Drag-scroll carousel ---------- */
-(function initCarousel(){
-  const carousel = document.getElementById('carousel');
-  let isDown = false, startX, scrollLeft;
-  carousel.addEventListener('mousedown', (e) => {
-    isDown = true; carousel.classList.add('dragging');
-    startX = e.pageX - carousel.offsetLeft; scrollLeft = carousel.scrollLeft;
-  });
-  window.addEventListener('mouseup', () => { isDown = false; carousel.classList.remove('dragging'); });
-  carousel.addEventListener('mouseleave', () => { isDown = false; carousel.classList.remove('dragging'); });
-  carousel.addEventListener('mousemove', (e) => {
-    if (!isDown) return;
-    e.preventDefault();
-    const x = e.pageX - carousel.offsetLeft;
-    carousel.scrollLeft = scrollLeft - (x - startX) * 1.2;
-  });
-  document.getElementById('carouselPrev').addEventListener('click', () => {
-    carousel.scrollBy({ left: -320, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
-  });
-  document.getElementById('carouselNext').addEventListener('click', () => {
-    carousel.scrollBy({ left: 320, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
-  });
-})();
 
 /* ---------- Back to top ---------- */
 const backToTop = document.getElementById('backToTop');
@@ -269,7 +193,7 @@ const contactForm = document.getElementById('contactForm');
 const formNote = document.getElementById('formNote');
 contactForm.addEventListener('submit', (e) => {
   e.preventDefault();
-  formNote.textContent = 'Thanks! (This is a static demo — connect Formspree/EmailJS to actually send this.)';
+  formNote.textContent = 'Thank you. This is a static demo. Connect Formspree or EmailJS to send this for real.';
   formNote.style.fontWeight = '700';
   contactForm.reset();
 });
