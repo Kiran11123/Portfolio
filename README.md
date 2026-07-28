@@ -1,31 +1,34 @@
-# Alex Morgan — Portfolio (Interactive Edition)
+# Kiran Patil — Portfolio
 
-Same bold black-and-white visual language, restructured to be genuinely interactive: real new components, not just new animations on old markup.
+Bold black-and-white interactive portfolio, now populated with your real CV content, a working dark/light mode toggle, and custom vector illustrations in place of stock photography.
 
-## What's structurally new
+## What changed in this pass
 
-| Change | What it is | Why |
-|---|---|---|
-| **Intro loader** | Full-screen black splash with the name, sliding up to reveal the page on load | Gives the site a "moment" before it starts, like a lot of Awwwards sites — skipped instantly under reduced-motion |
-| **Scroll progress bar** | Thin black bar across the top that fills as you scroll the page | Small but useful wayfinding + a nice bit of polish |
-| **Custom cursor** | A small dot plus a lagging ring that expands over anything clickable/tiltable | Reinforces the graphic, designed feel; disabled automatically on touch devices |
-| **Experience → accordion** | Was a static timeline; now each role is collapsed by default (first one open) and expands on click | Turns a wall of bullet points into something the recruiter *does* rather than just scrolls past |
-| **Projects → filter + modal** | New filter bar (All / Process / Dashboard / Requirements / Pricing) that hides/shows cards, and "View case study" now opens a real modal dialog with the full write-up instead of a dead link | This is the biggest structural change — projects behave like an actual mini case-study browser |
-| **Skills → flip cards** | Each card flips on click/tap/keyboard-Enter to reveal a short "how I actually use this" line on the back | Replaces a static badge list with something that rewards a click |
-| **Education + Certifications → merged, draggable carousel** | These were two separate grid sections; now one "Education & Certifications" section with a horizontally scrollable, drag-to-scroll card carousel plus prev/next arrow buttons | Real structural consolidation (you asked to change the site's structure) and a genuinely different interaction pattern (drag-scroll) than everything else on the page |
-| **Hero: flip avatar + draggable sticker** | The avatar block flips on click to reveal a second message; the "Open to work" badge can be dragged anywhere with the mouse or a finger | Small playful moments that don't affect the professional tone but add personality |
-| **Back-to-top button** | Appears after ~500px of scroll, bottom-right | Standard on long single-page sites once they have this many sections |
-| **Magnetic buttons + 3D tilt cards returned** | Buttons pull slightly toward the cursor; project/skill/contact cards tilt in 3D based on cursor position | Carried over from an earlier direction because it fits "more interactive," now layered on top of the bold B&W look instead of the glass look |
+### Content — pulled directly from your CV
+- **Hero, About**: rewritten around your actual career summary (3+ years, Power BI/DAX/Power Query, 90%/85% automation wins)
+- **Experience accordion**: all 4 real roles — Danone, GoodHabitz, TCS, and the Tikdin product bootcamp — with your actual bullet points. TCS's "Star of the Month" and "Best Team Award" now show as small badges inside that entry.
+- **Projects**: your four biggest measurable wins turned into case studies (Danone reporting automation, GoodHabitz Jira dashboard, TCS Python script, Tikdin product work), each filterable by category and with a modal for the fuller story
+- **Skills**: your actual skill list, grouped into Data & Analytics / BI & Cloud Tools / Business & Process / Product & Mindset
+- **Education & Certifications carousel**: Fontys Master's, your Bachelor's, Google Cloud cert, Microsoft Power Platform cert, and the Software Testing diploma
+- **Contact**: your real email and phone number; LinkedIn uses a placeholder handle (`linkedin.com/in/kiranpatil`) since no URL was in the CV — update it to your actual profile link in `index.html`
 
-## Accessibility notes for the new interactions
-- Flip cards and the accordion are keyboard-operable (`tabindex`, `Enter`/`Space`, `aria-expanded`)
-- The modal traps focus visually within a bordered dialog, closes on `Escape`, backdrop click, or the close button, and sets `aria-modal="true"`
-- Cursor, loader, and all mouse-tilt/parallax-style effects are removed entirely under `prefers-reduced-motion` and on touch devices — they're decorative, not load-bearing
-- The drag carousel is still fully usable with the prev/next buttons alone if someone can't or doesn't want to drag
+### "Add relevant pictures" — what I actually did and why
+I don't have a real photo of you, and pulling a random stock photo off the web would mean either misrepresenting you or using someone else's likeness/copyrighted image on your personal site — neither is right for a portfolio that's supposed to be *you*. So instead I built **original, on-brand vector graphics** tied to your actual work:
+- A **mini "dashboard" illustration** in the hero — animated bar chart styled like a Power BI card, labeled with your Danone reporting win, since that's the single most visual, most relevant thing about your background
+- **Custom icons on each project thumbnail** — a clock/cycle icon for the reporting automation, a bar-chart icon for the Jira dashboard, an automation/arrows icon for the Python script, a star/priority icon for the product work
+- **Icons on each skill card** matching its category (chart line, BI stack, process blocks, brain/lightbulb)
 
-## Customize your content
+These are all inline SVG, so there's zero image-hosting dependency and nothing to break. **When you have a real headshot**, replace the "KP" initials block in the hero (`.avatar-front` in `index.html`) with an `<img src="your-photo.jpg">` — I've left clear instructions in the file comments.
 
-Same as before: edit `index.html` by section. Project case-study text for the modal lives in `script.js` under `projectsData` — edit that object to change what appears when someone opens a case study (keep the summary text on the card itself in sync manually, since they're two separate copies by design — the modal is meant to say more than the card).
+### Dark / light mode toggle
+Added back to the nav (sun/moon icon button), defaults to light, remembers your choice in `localStorage`. This time every color in the stylesheet routes through the `--bg` / `--ink` / `--card` variables (no hardcoded `#fff` left anywhere), so buttons, the marquee, modal, carousel, and every card actually invert correctly — in the last version's underlying code this would have broken (white text on white buttons) in dark mode; that's fixed now.
+
+## Update your content further
+
+- **LinkedIn URL**: search `linkedin.com/in/kiranpatil` in `index.html` and swap in your real profile link (appears in the Contact section)
+- **Real photo**: replace the `.avatar-front` initials span with an `<img>`, and do the same for `.avatar-back` if you want a photo there instead of text
+- **Resume PDF**: drop `resume.pdf` into the folder and update the two `href="#"` resume links (`#resumeBtn`, `#resumeCard`) to `href="resume.pdf" download`, removing their placeholder click handlers in `script.js`
+- **Project case-study text**: lives in `script.js` under `projectsData` if you want to expand any of the four write-ups
 
 ## Deploy to Vercel for free
 
@@ -33,6 +36,6 @@ Same as before: edit `index.html` by section. Project case-study text for the mo
 2. vercel.com → "Add New Project" → import the repo → Deploy. Static site, zero config.
 
 ## Files
-- `index.html` — restructured content: accordion, filter bar + modal markup, flip cards, carousel
-- `style.css` — loader, cursor, progress bar, accordion, modal, flip-card 3D, carousel, tilt/magnetic support
-- `script.js` — all interaction logic: loader timing, cursor lerp, tilt/magnetic math, accordion, filters, modal, flip toggles, drag-scroll carousel, back-to-top
+- `index.html` — your real content, custom SVG illustrations, theme toggle button
+- `style.css` — full light/dark theme (properly variable-driven this time), illustration + icon styles
+- `script.js` — theme toggle + persistence, plus all prior interactions (accordion, filters, modal, flip cards, drag carousel, tilt/magnetic, cursor, loader)

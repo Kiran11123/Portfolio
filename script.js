@@ -2,6 +2,21 @@ document.getElementById('year').textContent = new Date().getFullYear();
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const canHover = window.matchMedia('(hover:hover)').matches;
 
+/* ---------- Theme toggle ---------- */
+const root = document.documentElement;
+const themeToggle = document.getElementById('themeToggle');
+function setTheme(theme){
+  root.setAttribute('data-theme', theme);
+  localStorage.setItem('theme', theme);
+  themeToggle.setAttribute('aria-pressed', theme === 'dark');
+  themeToggle.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+}
+themeToggle.addEventListener('click', () => {
+  const current = root.getAttribute('data-theme') || 'light';
+  setTheme(current === 'light' ? 'dark' : 'light');
+});
+setTheme(root.getAttribute('data-theme') || 'light');
+
 /* ---------- Intro loader ---------- */
 window.addEventListener('load', () => {
   const loader = document.getElementById('loader');
@@ -136,7 +151,6 @@ flipAvatar.addEventListener('click', () => flipAvatar.classList.toggle('flipped'
 (function makeDraggable(){
   const sticker = document.getElementById('dragSticker');
   let dragging = false, startX = 0, startY = 0, curX = 0, curY = 0;
-
   function start(x, y){ dragging = true; startX = x - curX; startY = y - curY; }
   function move(x, y){
     if (!dragging) return;
@@ -144,11 +158,9 @@ flipAvatar.addEventListener('click', () => flipAvatar.classList.toggle('flipped'
     sticker.style.transform = `translate(${curX}px, ${curY}px) rotate(${curX * 0.15}deg)`;
   }
   function end(){ dragging = false; }
-
   sticker.addEventListener('mousedown', (e) => start(e.clientX, e.clientY));
   window.addEventListener('mousemove', (e) => move(e.clientX, e.clientY));
   window.addEventListener('mouseup', end);
-
   sticker.addEventListener('touchstart', (e) => { const t = e.touches[0]; start(t.clientX, t.clientY); }, { passive:true });
   window.addEventListener('touchmove', (e) => { const t = e.touches[0]; move(t.clientX, t.clientY); }, { passive:true });
   window.addEventListener('touchend', end);
@@ -181,10 +193,10 @@ filterBtns.forEach(btn => {
 
 /* ---------- Project modal ---------- */
 const projectsData = {
-  1: { tag: 'Process Optimization', title: 'Order Fulfillment Pipeline Redesign', desc: 'Mapped the end-to-end fulfillment process, found the bottleneck stage, and proposed a revised workflow that cut cycle time significantly.', achievements: ['Cut average cycle time from 6 days to 3.6 days', 'Rolled out to 3 regional warehouses'], tools: ['BPMN','SQL','Power BI'] },
-  2: { tag: 'Dashboard Build', title: 'Executive KPI Dashboard', desc: 'Consolidated five disconnected spreadsheets into a single live dashboard that leadership now checks weekly instead of requesting ad-hoc reports.', achievements: ['Eliminated ~8 hours/week of manual report building', 'Adopted by 3 executive stakeholders as default reporting view'], tools: ['Power BI','DAX','Stakeholder Interviews'] },
-  3: { tag: 'Requirements & Rollout', title: 'CRM Requirements & Rollout Plan', desc: 'Ran discovery across four departments with conflicting needs, then wrote the requirements doc that got sign-off from all of them in one round.', achievements: ['Zero re-scoping requests after sign-off', 'Delivered 2 weeks ahead of schedule'], tools: ['JIRA','Confluence','Workshops'] },
-  4: { tag: 'Pricing Analysis', title: 'Pricing Model Experiment', desc: 'Designed and analyzed an A/B test on a proposed pricing tier, presenting findings that shaped the final go-to-market decision.', achievements: ['Ran test across 40k+ users with 95% confidence', 'Findings adopted directly into GTM pricing'], tools: ['Python','Statistics','Tableau'] }
+  1: { tag: 'Process Automation', title: 'Co-Manufacturer Reporting Automation', desc: 'Automated monthly co-manufacturer performance reporting at Danone, replacing manual spreadsheet handling with a Power BI + Power Query pipeline built on clean data modeling.', achievements: ['Cut manual processing time by ~90% and eliminated reporting errors', 'Added slicers, tooltips, and drill-through for detailed performance analysis', 'Defined KPIs with stakeholders for compliance and quality monitoring'], tools: ['Power BI','Power Query (M)','DAX'] },
+  2: { tag: 'Dashboard Build', title: 'Jira-Integrated Capacity Dashboard', desc: 'Built a Power BI dashboard integrated with Jira at GoodHabitz for real-time visibility into workload, sprint planning, and team capacity, backed by structured stakeholder research.', achievements: ['Applied Design Based Working (DBW) to iterate lo-fi → hi-fi prototypes', 'Ran Stakeholder & Socio-Technical Analysis to align solution with context', 'Executed a Digital Readiness Assessment ahead of rollout'], tools: ['Power BI','Jira','DBW Prototyping'] },
+  3: { tag: 'Python Automation', title: 'Job Development Automation Script', desc: 'Built a Python script at TCS automating a major part of the job development process, addressing a key inefficiency identified through stakeholder analysis.', achievements: ['Reduced job development time by 85%', 'Eliminated manual errors in the process', 'Delivered early and deployed during the client transition phase'], tools: ['Python','SQL','Linux'] },
+  4: { tag: 'Product Strategy', title: 'Tikdin Product Vision & Prioritization', desc: 'Defined the product vision for Tikdin during a product management bootcamp, grounding prioritization decisions in real user research rather than guesswork.', achievements: ['Tracked the North Star Metric using Amplitude', 'Conducted user interviews and analyzed product stickiness', 'Ran RICE Analysis to prioritize features in the Product Requirement Document'], tools: ['Amplitude','RICE Analysis','User Research'] }
 };
 
 const modalOverlay = document.getElementById('modalOverlay');
@@ -226,9 +238,7 @@ document.querySelectorAll('.flip-card').forEach(card => {
 /* ---------- Drag-scroll carousel ---------- */
 (function initCarousel(){
   const carousel = document.getElementById('carousel');
-  const track = document.getElementById('carouselTrack');
   let isDown = false, startX, scrollLeft;
-
   carousel.addEventListener('mousedown', (e) => {
     isDown = true; carousel.classList.add('dragging');
     startX = e.pageX - carousel.offsetLeft; scrollLeft = carousel.scrollLeft;
@@ -241,7 +251,6 @@ document.querySelectorAll('.flip-card').forEach(card => {
     const x = e.pageX - carousel.offsetLeft;
     carousel.scrollLeft = scrollLeft - (x - startX) * 1.2;
   });
-
   document.getElementById('carouselPrev').addEventListener('click', () => {
     carousel.scrollBy({ left: -320, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
   });
