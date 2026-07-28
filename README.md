@@ -1,31 +1,31 @@
-# Alex Morgan — Portfolio (Bold B&amp;W Creative Edition)
+# Alex Morgan — Portfolio (Interactive Edition)
 
-A high-energy, graphic black-and-white portfolio — Swiss-poster / neo-brutalist creative-studio feel, expressed entirely in black and white (per your request: colorful/vibrant energy, but strictly a black-and-white palette). Same Chillax + Inter fonts as before, everything else rebuilt.
+Same bold black-and-white visual language, restructured to be genuinely interactive: real new components, not just new animations on old markup.
 
-## What changed and why
+## What's structurally new
 
-| Area | What I did | Why |
+| Change | What it is | Why |
 |---|---|---|
-| **Base theme** | Flipped from dark to a bright white background with pure black ink — no grays-as-color, no dark mode | You asked for "everything else" changed; the previous two versions were both dark. This is the clearest possible visual break. |
-| **"Vibrant" without color** | Hard-edged drop shadows (flat, no blur, offset 5–11px), thick 2px borders everywhere, a scrolling black marquee banner, rotated circular "sticker" badge, halftone dot background | Energy comes from graphic boldness and motion, not hue — this is how Swiss-poster and neo-brutalist studios (Gumroad's old site, Cosmos, many Awwwards black/white sites) read as "vibrant" while staying monochrome |
-| **Marquee ticker** | Full-width black stripe under the nav with bold scrolling text (BUSINESS ANALYST ★ DATA & AI ★ …) | Instant, high-energy signal of who you are, styled like a streetwear/creative-studio site rather than a corporate one |
-| **Numbered section tags** | Each section now opens with a pill-bordered number (01, 02, 03…) next to the label | Common device in editorial/print design for rhythm and wayfinding — replaces the plainer "eyebrow" text-only labels |
-| **Hard shadow cards** | Every card (projects, skills, timeline, contact, facts) uses a flat black drop-shadow that grows and shifts on hover instead of a soft blur | This is the signature "vibrant graphic" interaction — cards feel like they're physically lifting off a printed page |
-| **Hero** | Bold black avatar block with a rotated "Open to work" sticker, a ring and triangle as loose graphic shapes, headline with a highlighter-style mark behind one word | Playful, confident, and immediately different from both previous hero treatments |
-| **Buttons** | Solid black or white with a hard shadow that grows on hover and the button nudges toward the shadow | Same physical, poster-ish feel as the cards |
-| **Skill badges** | Alternate solid-black / outlined pills | Small graphic rhythm device, avoids a flat list |
-| **Typography** | Kept exactly as requested — Chillax headings, Inter body | No change per your instruction |
-| **Motion** | Marquee scroll (pure CSS), staggered scroll-reveals, hover lifts — all respect `prefers-reduced-motion` | Keeps the energetic feel without being exhausting or inaccessible |
+| **Intro loader** | Full-screen black splash with the name, sliding up to reveal the page on load | Gives the site a "moment" before it starts, like a lot of Awwwards sites — skipped instantly under reduced-motion |
+| **Scroll progress bar** | Thin black bar across the top that fills as you scroll the page | Small but useful wayfinding + a nice bit of polish |
+| **Custom cursor** | A small dot plus a lagging ring that expands over anything clickable/tiltable | Reinforces the graphic, designed feel; disabled automatically on touch devices |
+| **Experience → accordion** | Was a static timeline; now each role is collapsed by default (first one open) and expands on click | Turns a wall of bullet points into something the recruiter *does* rather than just scrolls past |
+| **Projects → filter + modal** | New filter bar (All / Process / Dashboard / Requirements / Pricing) that hides/shows cards, and "View case study" now opens a real modal dialog with the full write-up instead of a dead link | This is the biggest structural change — projects behave like an actual mini case-study browser |
+| **Skills → flip cards** | Each card flips on click/tap/keyboard-Enter to reveal a short "how I actually use this" line on the back | Replaces a static badge list with something that rewards a click |
+| **Education + Certifications → merged, draggable carousel** | These were two separate grid sections; now one "Education & Certifications" section with a horizontally scrollable, drag-to-scroll card carousel plus prev/next arrow buttons | Real structural consolidation (you asked to change the site's structure) and a genuinely different interaction pattern (drag-scroll) than everything else on the page |
+| **Hero: flip avatar + draggable sticker** | The avatar block flips on click to reveal a second message; the "Open to work" badge can be dragged anywhere with the mouse or a finger | Small playful moments that don't affect the professional tone but add personality |
+| **Back-to-top button** | Appears after ~500px of scroll, bottom-right | Standard on long single-page sites once they have this many sections |
+| **Magnetic buttons + 3D tilt cards returned** | Buttons pull slightly toward the cursor; project/skill/contact cards tilt in 3D based on cursor position | Carried over from an earlier direction because it fits "more interactive," now layered on top of the bold B&W look instead of the glass look |
 
-Dropped from the previous version: the 3D cube, glass/blur effects, cursor glow, and magnetic buttons — none of those fit a flat graphic black-and-white system, so removing them was part of "everything else" changing.
+## Accessibility notes for the new interactions
+- Flip cards and the accordion are keyboard-operable (`tabindex`, `Enter`/`Space`, `aria-expanded`)
+- The modal traps focus visually within a bordered dialog, closes on `Escape`, backdrop click, or the close button, and sets `aria-modal="true"`
+- Cursor, loader, and all mouse-tilt/parallax-style effects are removed entirely under `prefers-reduced-motion` and on touch devices — they're decorative, not load-bearing
+- The drag carousel is still fully usable with the prev/next buttons alone if someone can't or doesn't want to drag
 
 ## Customize your content
 
-Same as before: open `index.html`, edit each section by its HTML comment. Colors, borders, and shadow depth are controlled by the CSS variables at the top of `style.css` (`--border-w`, `--shadow-offset`, `--radius`).
-
-## Add your resume / real photo / working contact form
-
-Same steps as prior versions — see the inline handlers near `#resumeBtn`, `#resumeCard`, and `#contactForm` in the HTML/JS. For a real photo, replace `.avatar-block`'s initials span with an `<img>` and set `object-fit: cover`.
+Same as before: edit `index.html` by section. Project case-study text for the modal lives in `script.js` under `projectsData` — edit that object to change what appears when someone opens a case study (keep the summary text on the card itself in sync manually, since they're two separate copies by design — the modal is meant to say more than the card).
 
 ## Deploy to Vercel for free
 
@@ -33,6 +33,6 @@ Same steps as prior versions — see the inline handlers near `#resumeBtn`, `#re
 2. vercel.com → "Add New Project" → import the repo → Deploy. Static site, zero config.
 
 ## Files
-- `index.html` — structure and content
-- `style.css` — bold black/white design system: hard shadows, thick borders, marquee, halftone background
-- `script.js` — nav, scroll reveal, stat counters, form handling
+- `index.html` — restructured content: accordion, filter bar + modal markup, flip cards, carousel
+- `style.css` — loader, cursor, progress bar, accordion, modal, flip-card 3D, carousel, tilt/magnetic support
+- `script.js` — all interaction logic: loader timing, cursor lerp, tilt/magnetic math, accordion, filters, modal, flip toggles, drag-scroll carousel, back-to-top

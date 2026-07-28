@@ -1,4 +1,47 @@
 document.getElementById('year').textContent = new Date().getFullYear();
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const canHover = window.matchMedia('(hover:hover)').matches;
+
+/* ---------- Intro loader ---------- */
+window.addEventListener('load', () => {
+  const loader = document.getElementById('loader');
+  setTimeout(() => loader.classList.add('done'), prefersReducedMotion ? 0 : 500);
+});
+
+/* ---------- Scroll progress bar ---------- */
+const scrollProgress = document.getElementById('scrollProgress');
+function updateProgress(){
+  const h = document.documentElement;
+  const scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+  scrollProgress.style.width = scrolled + '%';
+}
+window.addEventListener('scroll', updateProgress, { passive:true });
+updateProgress();
+
+/* ---------- Custom cursor ---------- */
+if (canHover && !prefersReducedMotion) {
+  const dot = document.getElementById('cursorDot');
+  const ring = document.getElementById('cursorRing');
+  let rx = 0, ry = 0, tx = 0, ty = 0;
+  window.addEventListener('mousemove', (e) => {
+    tx = e.clientX; ty = e.clientY;
+    dot.style.transform = `translate(${tx}px, ${ty}px) translate(-50%,-50%)`;
+  });
+  function loop(){
+    rx += (tx - rx) * 0.18;
+    ry += (ty - ry) * 0.18;
+    ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%,-50%)`;
+    requestAnimationFrame(loop);
+  }
+  loop();
+  document.querySelectorAll('a, button, [data-tilt], .flip-card').forEach(el => {
+    el.addEventListener('mouseenter', () => ring.classList.add('hovering'));
+    el.addEventListener('mouseleave', () => ring.classList.remove('hovering'));
+  });
+} else {
+  document.getElementById('cursorDot').style.display = 'none';
+  document.getElementById('cursorRing').style.display = 'none';
+}
 
 /* ---------- Mobile nav ---------- */
 const navToggle = document.getElementById('navToggle');
@@ -8,10 +51,7 @@ navToggle.addEventListener('click', () => {
   navToggle.setAttribute('aria-expanded', isOpen);
 });
 navLinks.querySelectorAll('a').forEach(a => {
-  a.addEventListener('click', () => {
-    navLinks.classList.remove('open');
-    navToggle.setAttribute('aria-expanded', 'false');
-  });
+  a.addEventListener('click', () => { navLinks.classList.remove('open'); navToggle.setAttribute('aria-expanded','false'); });
 });
 
 /* ---------- Active section indicator ---------- */
@@ -24,7 +64,7 @@ const navObserver = new IntersectionObserver((entries) => {
       navAnchors.forEach(a => a.classList.toggle('active', a.getAttribute('href') === `#${id}`));
     }
   });
-}, { threshold: 0.4, rootMargin: '-80px 0px -60% 0px' });
+}, { threshold: 0.35, rootMargin: '-80px 0px -55% 0px' });
 sections.forEach(s => navObserver.observe(s));
 
 /* ---------- Staggered scroll reveal ---------- */
@@ -34,21 +74,13 @@ document.querySelectorAll('.reveal').forEach(el => {
   if (!revealGroups.has(parent)) revealGroups.set(parent, []);
   revealGroups.get(parent).push(el);
 });
-revealGroups.forEach(group => {
-  group.forEach((el, i) => { el.style.transitionDelay = `${Math.min(i * 80, 320)}ms`; });
-});
-
+revealGroups.forEach(group => { group.forEach((el, i) => { el.style.transitionDelay = `${Math.min(i * 80, 320)}ms`; }); });
 const revealObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('in');
-      revealObserver.unobserve(entry.target);
-    }
-  });
+  entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('in'); revealObserver.unobserve(entry.target); } });
 }, { threshold: 0.15 });
 document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-/* ---------- Animated stat counters ---------- */
+/* ---------- Stat counters ---------- */
 function animateCount(el){
   const target = parseFloat(el.dataset.count);
   const suffix = el.dataset.suffix || '';
@@ -66,11 +98,162 @@ function animateCount(el){
   requestAnimationFrame(tick);
 }
 const statObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting){ animateCount(entry.target); statObserver.unobserve(entry.target); }
-  });
+  entries.forEach(entry => { if (entry.isIntersecting){ animateCount(entry.target); statObserver.unobserve(entry.target); } });
 }, { threshold: 0.6 });
 document.querySelectorAll('.stat-num').forEach(el => statObserver.observe(el));
+
+/* ---------- Magnetic buttons ---------- */
+if (canHover && !prefersReducedMotion) {
+  document.querySelectorAll('.magnetic').forEach(btn => {
+    btn.addEventListener('mousemove', (e) => {
+      const rect = btn.getBoundingClientRect();
+      const relX = e.clientX - rect.left - rect.width / 2;
+      const relY = e.clientY - rect.top - rect.height / 2;
+      btn.style.transform = `translate(${relX * 0.2}px, ${relY * 0.3}px)`;
+    });
+    btn.addEventListener('mouseleave', () => { btn.style.transform = ''; });
+  });
+}
+
+/* ---------- 3D tilt ---------- */
+if (canHover && !prefersReducedMotion) {
+  document.querySelectorAll('[data-tilt]').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const px = (e.clientX - rect.left) / rect.width - 0.5;
+      const py = (e.clientY - rect.top) / rect.height - 0.5;
+      card.style.transform = `perspective(900px) rotateX(${(-py * 7).toFixed(2)}deg) rotateY(${(px * 7).toFixed(2)}deg)`;
+    });
+    card.addEventListener('mouseleave', () => { card.style.transform = 'perspective(900px) rotateX(0) rotateY(0)'; });
+  });
+}
+
+/* ---------- Avatar flip ---------- */
+const flipAvatar = document.getElementById('flipAvatar');
+flipAvatar.addEventListener('click', () => flipAvatar.classList.toggle('flipped'));
+
+/* ---------- Draggable sticker ---------- */
+(function makeDraggable(){
+  const sticker = document.getElementById('dragSticker');
+  let dragging = false, startX = 0, startY = 0, curX = 0, curY = 0;
+
+  function start(x, y){ dragging = true; startX = x - curX; startY = y - curY; }
+  function move(x, y){
+    if (!dragging) return;
+    curX = x - startX; curY = y - startY;
+    sticker.style.transform = `translate(${curX}px, ${curY}px) rotate(${curX * 0.15}deg)`;
+  }
+  function end(){ dragging = false; }
+
+  sticker.addEventListener('mousedown', (e) => start(e.clientX, e.clientY));
+  window.addEventListener('mousemove', (e) => move(e.clientX, e.clientY));
+  window.addEventListener('mouseup', end);
+
+  sticker.addEventListener('touchstart', (e) => { const t = e.touches[0]; start(t.clientX, t.clientY); }, { passive:true });
+  window.addEventListener('touchmove', (e) => { const t = e.touches[0]; move(t.clientX, t.clientY); }, { passive:true });
+  window.addEventListener('touchend', end);
+})();
+
+/* ---------- Accordion (experience) ---------- */
+document.querySelectorAll('.accordion-head').forEach(head => {
+  head.addEventListener('click', () => {
+    const item = head.closest('.accordion-item');
+    const isOpen = item.classList.contains('is-open');
+    item.classList.toggle('is-open', !isOpen);
+    head.setAttribute('aria-expanded', String(!isOpen));
+  });
+});
+
+/* ---------- Project filter ---------- */
+const filterBtns = document.querySelectorAll('.filter-btn');
+const projectCards = document.querySelectorAll('.project-card');
+filterBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    filterBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const filter = btn.dataset.filter;
+    projectCards.forEach(card => {
+      const match = filter === 'all' || card.dataset.category === filter;
+      card.classList.toggle('hidden', !match);
+    });
+  });
+});
+
+/* ---------- Project modal ---------- */
+const projectsData = {
+  1: { tag: 'Process Optimization', title: 'Order Fulfillment Pipeline Redesign', desc: 'Mapped the end-to-end fulfillment process, found the bottleneck stage, and proposed a revised workflow that cut cycle time significantly.', achievements: ['Cut average cycle time from 6 days to 3.6 days', 'Rolled out to 3 regional warehouses'], tools: ['BPMN','SQL','Power BI'] },
+  2: { tag: 'Dashboard Build', title: 'Executive KPI Dashboard', desc: 'Consolidated five disconnected spreadsheets into a single live dashboard that leadership now checks weekly instead of requesting ad-hoc reports.', achievements: ['Eliminated ~8 hours/week of manual report building', 'Adopted by 3 executive stakeholders as default reporting view'], tools: ['Power BI','DAX','Stakeholder Interviews'] },
+  3: { tag: 'Requirements & Rollout', title: 'CRM Requirements & Rollout Plan', desc: 'Ran discovery across four departments with conflicting needs, then wrote the requirements doc that got sign-off from all of them in one round.', achievements: ['Zero re-scoping requests after sign-off', 'Delivered 2 weeks ahead of schedule'], tools: ['JIRA','Confluence','Workshops'] },
+  4: { tag: 'Pricing Analysis', title: 'Pricing Model Experiment', desc: 'Designed and analyzed an A/B test on a proposed pricing tier, presenting findings that shaped the final go-to-market decision.', achievements: ['Ran test across 40k+ users with 95% confidence', 'Findings adopted directly into GTM pricing'], tools: ['Python','Statistics','Tableau'] }
+};
+
+const modalOverlay = document.getElementById('modalOverlay');
+const modalTag = document.getElementById('modalTag');
+const modalTitle = document.getElementById('modalTitle');
+const modalDesc = document.getElementById('modalDesc');
+const modalAchievements = document.getElementById('modalAchievements');
+const modalTools = document.getElementById('modalTools');
+
+function openModal(id){
+  const data = projectsData[id];
+  if (!data) return;
+  modalTag.textContent = data.tag;
+  modalTitle.textContent = data.title;
+  modalDesc.textContent = data.desc;
+  modalAchievements.innerHTML = data.achievements.map(a => `<li>${a}</li>`).join('');
+  modalTools.innerHTML = data.tools.map(t => `<span>${t}</span>`).join('');
+  modalOverlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal(){
+  modalOverlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.querySelectorAll('[data-open-modal]').forEach(btn => {
+  btn.addEventListener('click', () => openModal(btn.dataset.openModal));
+});
+document.getElementById('modalClose').addEventListener('click', closeModal);
+modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) closeModal(); });
+window.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+
+/* ---------- Skill flip cards ---------- */
+document.querySelectorAll('.flip-card').forEach(card => {
+  function toggle(){ card.classList.toggle('flipped'); }
+  card.addEventListener('click', toggle);
+  card.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); } });
+});
+
+/* ---------- Drag-scroll carousel ---------- */
+(function initCarousel(){
+  const carousel = document.getElementById('carousel');
+  const track = document.getElementById('carouselTrack');
+  let isDown = false, startX, scrollLeft;
+
+  carousel.addEventListener('mousedown', (e) => {
+    isDown = true; carousel.classList.add('dragging');
+    startX = e.pageX - carousel.offsetLeft; scrollLeft = carousel.scrollLeft;
+  });
+  window.addEventListener('mouseup', () => { isDown = false; carousel.classList.remove('dragging'); });
+  carousel.addEventListener('mouseleave', () => { isDown = false; carousel.classList.remove('dragging'); });
+  carousel.addEventListener('mousemove', (e) => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - carousel.offsetLeft;
+    carousel.scrollLeft = scrollLeft - (x - startX) * 1.2;
+  });
+
+  document.getElementById('carouselPrev').addEventListener('click', () => {
+    carousel.scrollBy({ left: -320, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+  });
+  document.getElementById('carouselNext').addEventListener('click', () => {
+    carousel.scrollBy({ left: 320, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+  });
+})();
+
+/* ---------- Back to top ---------- */
+const backToTop = document.getElementById('backToTop');
+window.addEventListener('scroll', () => { backToTop.classList.toggle('show', window.scrollY > 500); }, { passive:true });
+backToTop.addEventListener('click', () => window.scrollTo({ top:0, behavior: prefersReducedMotion ? 'auto' : 'smooth' }));
 
 /* ---------- Contact form (static placeholder) ---------- */
 const contactForm = document.getElementById('contactForm');
