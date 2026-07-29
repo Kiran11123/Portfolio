@@ -9,6 +9,33 @@ const isCoarse = window.matchMedia("(pointer: coarse)").matches;
 if (window.lucide) lucide.createIcons();
 
 // ---------------------------------------------
+// Theme toggle (light / dark)
+// ---------------------------------------------
+const themeToggle = document.getElementById("themeToggle");
+if (themeToggle) {
+  themeToggle.addEventListener("click", () => {
+    const current = document.documentElement.getAttribute("data-theme");
+    const next = current === "light" ? "dark" : "light";
+    document.documentElement.setAttribute("data-theme", next);
+    try { localStorage.setItem("kp-theme", next); } catch (e) { /* storage unavailable */ }
+  });
+}
+
+// ---------------------------------------------
+// Back to top
+// ---------------------------------------------
+const backToTop = document.getElementById("backToTop");
+if (backToTop) {
+  window.addEventListener("scroll", () => {
+    backToTop.classList.toggle("visible", window.scrollY > window.innerHeight * 0.6);
+  }, { passive: true });
+
+  backToTop.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+  });
+}
+
+// ---------------------------------------------
 // Preloader
 // ---------------------------------------------
 const preloader = document.getElementById("preloader");

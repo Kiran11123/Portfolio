@@ -52,8 +52,15 @@ Any future push to the `main` branch redeploys the site automatically.
 - Fonts: Chillax for headings, Inter for body text, JetBrains Mono for
   numbers and labels — loaded from Fontshare and Google Fonts.
 - Icons: [Lucide](https://lucide.dev), loaded from a CDN.
-- The moving background is a lightweight canvas particle network meant to
-  echo data flowing between points. It pauses automatically if the visitor's
-  system has "reduce motion" turned on.
-- The floating dashboard mock in the hero section is built from CSS and SVG,
-  not a screenshot, so it stays crisp at any size.
+- The moving background combines a particle network, a faint circuit-style
+  grid, and slow-floating icons (chart, database, workflow, target, and
+  similar) to nod at data and digital transformation without using stock
+  photography. Real photos weren't used because hotlinked stock images can
+  break or raise licensing questions on a public site — if you'd like your
+  own photo somewhere, drop the file into `assets/` and it can be added.
+- A light/dark toggle sits in the nav. The choice is remembered in the
+  visitor's browser between visits.
+- A "back to top" button appears in the bottom-right corner once you scroll
+  past the first screen.
+- Everything pauses or simplifies automatically if the visitor's system has
+  "reduce motion" turned on.
