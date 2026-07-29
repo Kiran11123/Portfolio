@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Kiran Patil — Digital Transformation &amp; Data Analytics</title>
-<meta name="description" content="Kiran Patil, Digital Transformation and Data Analytics professional. Power BI, SQL, Python automation, and process improvement." />
+<title>Kiran Patil — Business Analyst &amp; Digital Transformation</title>
+<meta name="description" content="Kiran Patil, Business Analyst specializing in Digital Transformation and Data. Power BI, SQL, Python automation, and stakeholder-driven process improvement." />
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,21 +17,35 @@
 </head>
 <body>
 
-<canvas id="bg-canvas" aria-hidden="true"></canvas>
+<!-- Preloader -->
+<div class="preloader" id="preloader">
+  <div class="preloader-mark">KP</div>
+  <div class="preloader-count"><span id="preCount">0</span>%</div>
+  <div class="preloader-bar"><span id="preBar"></span></div>
+  <div class="preloader-tag">BUSINESS ANALYST &middot; DIGITAL TRANSFORMATION &middot; DATA</div>
+</div>
 
+<!-- Custom cursor -->
+<div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+<div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
+
+<canvas id="bg-canvas" aria-hidden="true"></canvas>
 <div class="grain" aria-hidden="true"></div>
+
+<div class="progress-bar" aria-hidden="true"><span id="progressFill"></span></div>
 
 <header class="nav" id="nav">
   <div class="nav-inner">
-    <a href="#top" class="nav-logo">KP<span class="dot">.</span></a>
+    <a href="#top" class="nav-logo tilt-sm">KP<span class="dot">.</span></a>
     <nav class="nav-links" aria-label="Primary">
       <a href="#about">About</a>
+      <a href="#approach">Approach</a>
       <a href="#experience">Experience</a>
       <a href="#skills">Skills</a>
       <a href="#education">Education</a>
       <a href="#contact">Contact</a>
     </nav>
-    <a class="nav-cta" href="assets/Kiran_Patil_CV.pdf" download>
+    <a class="nav-cta magnetic" href="assets/Kiran_Patil_CV.pdf" download>
       <span>Résumé</span>
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 21h16"/></svg>
     </a>
@@ -45,42 +59,29 @@
 
   <!-- HERO -->
   <section class="hero">
+    <div class="hero-spotlight" id="heroSpotlight" aria-hidden="true"></div>
     <div class="hero-inner">
       <div class="hero-copy">
-        <p class="eyebrow reveal">Digital Transformation · Data Analytics</p>
+        <p class="eyebrow reveal">Business Analyst &middot; Digital Transformation &middot; Data</p>
         <h1 class="hero-title" id="heroTitle" aria-label="Kiran Patil">
           <span class="line" data-text="Kiran"></span>
           <span class="line" data-text="Patil"></span>
         </h1>
         <p class="hero-sub reveal">
-          I turn scattered data and manual processes into dashboards, automated
-          pipelines, and decisions people can act on. Based in The Hague, working
-          across Power BI, SQL, and Python.
+          I connect business questions to the data that answers them. Requirements,
+          KPIs, dashboards, and automation, built with stakeholders rather than
+          handed to them. Based in The Hague, working across Power BI, SQL, and Python.
         </p>
         <div class="hero-actions reveal">
-          <a href="#experience" class="btn btn-primary">
+          <a href="#experience" class="btn btn-primary magnetic">
             <span>See the work</span>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14m0 0l-6-6m6 6l-6 6"/></svg>
           </a>
-          <a href="#contact" class="btn btn-ghost">Get in touch</a>
-        </div>
-        <div class="hero-stats reveal">
-          <div class="stat">
-            <span class="stat-num" data-count="90" data-suffix="%">0%</span>
-            <span class="stat-label">manual reporting<br>time removed</span>
-          </div>
-          <div class="stat">
-            <span class="stat-num" data-count="85" data-suffix="%">0%</span>
-            <span class="stat-label">faster job<br>development cycle</span>
-          </div>
-          <div class="stat">
-            <span class="stat-num" data-count="3" data-suffix="+">0+</span>
-            <span class="stat-label">years in data &amp;<br>process roles</span>
-          </div>
+          <a href="#contact" class="btn btn-ghost magnetic">Get in touch</a>
         </div>
       </div>
 
-      <div class="hero-visual reveal" aria-hidden="true">
+      <div class="hero-visual reveal tilt" aria-hidden="true">
         <div class="panel">
           <div class="panel-head">
             <div class="panel-dots"><span></span><span></span><span></span></div>
@@ -119,9 +120,41 @@
         <div class="panel-glow" aria-hidden="true"></div>
       </div>
     </div>
+
+    <div class="marquee-strip" aria-hidden="true">
+      <div class="marquee-track">
+        <span>Business Analysis</span><span>&middot;</span><span>Digital Transformation</span><span>&middot;</span><span>Data Strategy</span><span>&middot;</span><span>Process Automation</span><span>&middot;</span>
+        <span>Business Analysis</span><span>&middot;</span><span>Digital Transformation</span><span>&middot;</span><span>Data Strategy</span><span>&middot;</span><span>Process Automation</span><span>&middot;</span>
+      </div>
+    </div>
+
     <div class="scroll-cue reveal" aria-hidden="true">
       <span>Scroll</span>
       <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- IMPACT BAND -->
+  <section class="impact">
+    <div class="section-inner impact-grid">
+      <div class="impact-card impact-card-lg reveal tilt">
+        <span class="impact-num" data-count="90" data-suffix="%">0%</span>
+        <span class="impact-label">Manual reporting time removed at Danone through automated Power BI pipelines</span>
+      </div>
+      <div class="impact-card reveal tilt">
+        <span class="impact-num" data-count="85" data-suffix="%">0%</span>
+        <span class="impact-label">Faster job development at TCS after a Python automation build</span>
+      </div>
+      <div class="impact-card reveal tilt">
+        <span class="impact-num" data-count="3" data-suffix="+">0+</span>
+        <span class="impact-label">Years across business analysis, data, and digital transformation roles</span>
+      </div>
+      <div class="impact-card impact-card-stack reveal tilt">
+        <span class="impact-label impact-label-top">Core stack</span>
+        <div class="stack-tags">
+          <span>Power BI</span><span>SQL</span><span>Python</span><span>DAX</span>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -129,24 +162,28 @@
   <section class="section" id="about">
     <div class="section-inner about-grid">
       <div class="section-head reveal">
-        <p class="eyebrow">01 · About</p>
-        <h2>From raw data to decisions that hold up.</h2>
+        <p class="eyebrow">01 &middot; About</p>
+        <h2>Where business questions turn into data answers.</h2>
       </div>
       <div class="about-body reveal">
         <p>
-          I am a Digital Transformation professional with three-plus years across
-          data analysis, business analysis, and process automation. My work
-          usually starts the same way: sit with stakeholders, understand what
-          they actually need to measure, then build the dashboard, script, or
-          workflow that gets them there without the manual overhead.
+          I work as a business analyst inside digital transformation projects,
+          which in practice means sitting between the people who need an
+          answer and the data that can give it to them. Three-plus years in,
+          the job has stayed the same in shape even as the tools and
+          industries have changed: gather requirements properly, define KPIs
+          that stakeholders actually agree on, then build and automate the
+          reporting or process behind them.
         </p>
         <p>
-          Most recently at Danone, I have been rebuilding how co-manufacturer
-          performance gets reported, cutting manual processing time by roughly
-          90% and removing the errors that came with it. Earlier, at TCS, I
-          automated a core piece of the job development process with a Python
-          script, bringing delivery time down by 85%. In between, I have worked
-          on Power BI and Jira integrations, prototyping, and product research.
+          Most recently at Danone, that meant rebuilding co-manufacturer
+          performance reporting, cutting manual processing time by roughly
+          90% and removing the errors that came with it. At TCS, it meant
+          automating a core piece of the job development process with a
+          Python script, bringing delivery time down by 85%. In between,
+          I have worked on Power BI and Jira integrations, prototyping, and
+          product research, always circling back to the same question: what
+          does this data need to prove, and to whom.
         </p>
         <div class="about-facts">
           <div class="fact">
@@ -155,7 +192,7 @@
           </div>
           <div class="fact">
             <span class="fact-label">Focus</span>
-            <span class="fact-value">Power BI · SQL · Python automation</span>
+            <span class="fact-value">Business analysis &middot; digital transformation &middot; data</span>
           </div>
           <div class="fact">
             <span class="fact-label">Studying</span>
@@ -166,61 +203,105 @@
     </div>
   </section>
 
+  <!-- APPROACH -->
+  <section class="section approach-section" id="approach">
+    <div class="section-inner">
+      <div class="section-head reveal">
+        <p class="eyebrow">02 &middot; Approach</p>
+        <h2>The same four moves, every project.</h2>
+      </div>
+
+      <div class="approach-grid">
+        <div class="approach-card reveal tilt">
+          <span class="approach-index">01</span>
+          <h3>Understand</h3>
+          <p>Stakeholder interviews and data flow mapping to find out what is actually being measured, and why it matters to the people asking.</p>
+        </div>
+        <div class="approach-card reveal tilt">
+          <span class="approach-index">02</span>
+          <h3>Define</h3>
+          <p>KPIs, metrics, and requirements agreed with stakeholders up front, so the build has a clear target from day one.</p>
+        </div>
+        <div class="approach-card reveal tilt">
+          <span class="approach-index">03</span>
+          <h3>Build</h3>
+          <p>Power BI dashboards, data models, and Python scripts that turn scattered sources into one reliable view.</p>
+        </div>
+        <div class="approach-card reveal tilt">
+          <span class="approach-index">04</span>
+          <h3>Improve</h3>
+          <p>Automation and walkthroughs that remove manual steps and help the solution actually get adopted.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="marquee-strip marquee-strip-alt" aria-hidden="true">
+    <div class="marquee-track">
+      <span>Selected Experience</span><span>&middot;</span><span>Selected Experience</span><span>&middot;</span><span>Selected Experience</span><span>&middot;</span>
+      <span>Selected Experience</span><span>&middot;</span><span>Selected Experience</span><span>&middot;</span><span>Selected Experience</span><span>&middot;</span>
+    </div>
+  </div>
+
   <!-- EXPERIENCE -->
   <section class="section" id="experience">
     <div class="section-inner">
       <div class="section-head reveal">
-        <p class="eyebrow">02 · Experience</p>
+        <p class="eyebrow">03 &middot; Experience</p>
         <h2>A track record built one dashboard at a time.</h2>
       </div>
 
-      <div class="timeline">
+      <div class="timeline" id="timeline">
+        <div class="tl-rail"><span class="tl-rail-fill" id="tlFill"></span></div>
 
         <article class="tl-item reveal">
-          <div class="tl-marker"><span class="tl-dot"></span><span class="tl-line"></span></div>
+          <div class="tl-marker"><span class="tl-dot"></span></div>
           <div class="tl-content">
             <div class="tl-meta">
               <span class="tl-date">Dec 2025 — Jun 2026</span>
               <span class="tl-tag">Current</span>
             </div>
             <h3>Digital Performance &amp; Quality Intern</h3>
-            <p class="tl-company">Danone · Hoofddorp, Netherlands</p>
+            <p class="tl-company">Danone &middot; Hoofddorp, Netherlands</p>
             <ul>
               <li>Automated monthly performance reporting, cutting manual processing time by about 90% and removing recurring reporting errors.</li>
               <li>Built Power BI dashboards with Power Query and DAX, including data models, slicers, tooltips, and drill-through views for co-manufacturer performance.</li>
               <li>Defined KPIs with cross-functional stakeholders to track compliance and quality, supporting earlier issue detection.</li>
               <li>Mapped data sources across systems through stakeholder interviews to keep reporting aligned with real requirements.</li>
             </ul>
+            <span class="tl-metric">90% less manual reporting</span>
           </div>
         </article>
 
         <article class="tl-item reveal">
-          <div class="tl-marker"><span class="tl-dot"></span><span class="tl-line"></span></div>
+          <div class="tl-marker"><span class="tl-dot"></span></div>
           <div class="tl-content">
             <div class="tl-meta"><span class="tl-date">Apr 2025 — Jun 2025</span></div>
             <h3>Digital Transformation Analyst Intern</h3>
-            <p class="tl-company">GoodHabitz B.V · Eindhoven, Netherlands</p>
+            <p class="tl-company">GoodHabitz B.V &middot; Eindhoven, Netherlands</p>
             <ul>
               <li>Built a Power BI dashboard integrated with Jira for real-time visibility into workload, sprint planning, and team capacity.</li>
               <li>Applied Design Based Working principles to develop lo-fi through hi-fi prototypes from stakeholder feedback.</li>
               <li>Ran stakeholder, socio-technical, and digital readiness analyses to align the solution with both process and infrastructure.</li>
               <li>Led user walkthroughs to validate prototype usability before rollout.</li>
             </ul>
+            <span class="tl-metric">Real-time Jira visibility</span>
           </div>
         </article>
 
         <article class="tl-item reveal">
-          <div class="tl-marker"><span class="tl-dot"></span><span class="tl-line"></span></div>
+          <div class="tl-marker"><span class="tl-dot"></span></div>
           <div class="tl-content">
             <div class="tl-meta"><span class="tl-date">Feb 2022 — Jul 2024</span></div>
             <h3>IT Business Analyst</h3>
-            <p class="tl-company">Tata Consultancy Services · India</p>
+            <p class="tl-company">Tata Consultancy Services &middot; India</p>
             <ul>
               <li>Developed a Python script that automated a major part of the job development process, cutting time by 85% and removing manual errors.</li>
               <li>Worked with clients and technical teams to gather requirements and propose solutions grounded in business need.</li>
               <li>Used SQL and Linux to pull account data directly from databases and servers for analysis.</li>
               <li>Built dashboards and reporting in Power BI and Smartsheet, and kept stakeholders informed throughout delivery.</li>
             </ul>
+            <span class="tl-metric">85% faster delivery</span>
             <div class="tl-badges">
               <span class="badge">Star of the Month</span>
               <span class="badge">Best Team Award</span>
@@ -233,12 +314,13 @@
           <div class="tl-content">
             <div class="tl-meta"><span class="tl-date">Jan 2023 — Mar 2023</span></div>
             <h3>Associate Product Manager, Bootcamp</h3>
-            <p class="tl-company">Tikdin · France (Remote)</p>
+            <p class="tl-company">Tikdin &middot; France (Remote)</p>
             <ul>
               <li>Shaped the product vision and tracked the North Star Metric using Amplitude.</li>
               <li>Ran user research through interviews to surface real pain points, then applied RICE analysis for prioritization.</li>
               <li>Wrote the product requirements document based on findings from research and prioritization.</li>
             </ul>
+            <span class="tl-metric">RICE-prioritized roadmap</span>
           </div>
         </article>
 
@@ -250,33 +332,40 @@
   <section class="section" id="skills">
     <div class="section-inner">
       <div class="section-head reveal">
-        <p class="eyebrow">03 · Skills</p>
+        <p class="eyebrow">04 &middot; Skills</p>
         <h2>The toolkit behind the numbers.</h2>
       </div>
 
+      <div class="skill-marquee" aria-hidden="true">
+        <div class="marquee-track marquee-track-slow">
+          <span>Power BI</span><span>SQL</span><span>Python</span><span>DAX</span><span>Power Query</span><span>Stakeholder Management</span><span>Agile</span><span>Requirement Gathering</span><span>Systems Thinking</span>
+          <span>Power BI</span><span>SQL</span><span>Python</span><span>DAX</span><span>Power Query</span><span>Stakeholder Management</span><span>Agile</span><span>Requirement Gathering</span><span>Systems Thinking</span>
+        </div>
+      </div>
+
       <div class="skills-grid">
-        <div class="skill-card reveal">
+        <div class="skill-card reveal tilt">
           <div class="skill-icon" data-lucide="bar-chart-3"></div>
           <h3>Data &amp; Analytics</h3>
           <ul class="tag-list">
             <li>Power BI</li><li>DAX &amp; Power Query</li><li>SQL</li><li>Python Automation</li><li>Data Visualization</li>
           </ul>
         </div>
-        <div class="skill-card reveal">
+        <div class="skill-card reveal tilt">
           <div class="skill-icon" data-lucide="workflow"></div>
           <h3>Process &amp; Delivery</h3>
           <ul class="tag-list">
             <li>Requirement Gathering</li><li>UAT</li><li>SDLC</li><li>Agile Methodology</li><li>Design Thinking</li>
           </ul>
         </div>
-        <div class="skill-card reveal">
+        <div class="skill-card reveal tilt">
           <div class="skill-icon" data-lucide="layout-grid"></div>
           <h3>Tools &amp; Platforms</h3>
           <ul class="tag-list">
             <li>Excel</li><li>Smartsheet</li><li>Jira</li><li>Amplitude</li><li>Cloud</li>
           </ul>
         </div>
-        <div class="skill-card reveal">
+        <div class="skill-card reveal tilt">
           <div class="skill-icon" data-lucide="users"></div>
           <h3>Stakeholders &amp; Strategy</h3>
           <ul class="tag-list">
@@ -291,36 +380,36 @@
   <section class="section" id="education">
     <div class="section-inner">
       <div class="section-head reveal">
-        <p class="eyebrow">04 · Education &amp; Certifications</p>
+        <p class="eyebrow">05 &middot; Education &amp; Certifications</p>
         <h2>Formal training, kept current.</h2>
       </div>
 
       <div class="edu-grid">
-        <div class="edu-card reveal">
+        <div class="edu-card reveal tilt">
           <div class="edu-icon" data-lucide="graduation-cap"></div>
           <span class="edu-date">Aug 2024 — Jul 2026</span>
           <h3>MSc Digital Technology Engineering</h3>
           <p>Fontys University of Applied Sciences</p>
         </div>
-        <div class="edu-card reveal">
+        <div class="edu-card reveal tilt">
           <div class="edu-icon" data-lucide="graduation-cap"></div>
           <span class="edu-date">Aug 2016 — Apr 2020</span>
           <h3>BEng Mechanical Engineering</h3>
           <p>Savitribai Phule Pune University</p>
         </div>
-        <div class="edu-card reveal">
+        <div class="edu-card reveal tilt">
           <div class="edu-icon" data-lucide="badge-check"></div>
           <span class="edu-date">Certification</span>
           <h3>Google Certified Associate Cloud Engineer</h3>
           <p>Google Cloud Platform</p>
         </div>
-        <div class="edu-card reveal">
+        <div class="edu-card reveal tilt">
           <div class="edu-icon" data-lucide="badge-check"></div>
           <span class="edu-date">Certification</span>
           <h3>Power Platform Developer Associate</h3>
           <p>Microsoft</p>
         </div>
-        <div class="edu-card reveal">
+        <div class="edu-card reveal tilt">
           <div class="edu-icon" data-lucide="badge-check"></div>
           <span class="edu-date">Nov 2021 — Apr 2022</span>
           <h3>Diploma in Software Testing</h3>
@@ -335,22 +424,22 @@
     <div class="section-inner">
       <div class="contact-grid">
         <div class="reveal">
-          <p class="eyebrow">05 · Contact</p>
+          <p class="eyebrow">06 &middot; Contact</p>
           <h2>Let's talk about your data.</h2>
           <p class="contact-copy">
-            Open to roles and conversations in data analysis, business analysis,
-            and digital transformation. The fastest way to reach me is by email.
+            Open to roles and conversations in business analysis, digital
+            transformation, and data. The fastest way to reach me is by email.
           </p>
         </div>
         <div class="contact-cards reveal">
-          <a class="contact-card" href="mailto:kiranpatil3499@gmail.com">
+          <a class="contact-card tilt-sm" href="mailto:kiranpatil3499@gmail.com">
             <div class="contact-icon" data-lucide="mail"></div>
             <div>
               <span class="contact-label">Email</span>
               <span class="contact-value">kiranpatil3499@gmail.com</span>
             </div>
           </a>
-          <a class="contact-card" href="tel:+31684253626">
+          <a class="contact-card tilt-sm" href="tel:+31684253626">
             <div class="contact-icon" data-lucide="phone"></div>
             <div>
               <span class="contact-label">Phone</span>
@@ -358,14 +447,14 @@
             </div>
           </a>
           <!-- Add your LinkedIn profile URL to the href below -->
-          <a class="contact-card" href="#" target="_blank" rel="noopener">
+          <a class="contact-card tilt-sm" href="#" target="_blank" rel="noopener">
             <div class="contact-icon" data-lucide="linkedin"></div>
             <div>
               <span class="contact-label">LinkedIn</span>
               <span class="contact-value">Connect on LinkedIn</span>
             </div>
           </a>
-          <div class="contact-card contact-static">
+          <div class="contact-card contact-static tilt-sm">
             <div class="contact-icon" data-lucide="map-pin"></div>
             <div>
               <span class="contact-label">Location</span>
