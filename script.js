@@ -1,207 +1,163 @@
-document.getElementById('year').textContent = new Date().getFullYear();
-const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-const canHover = window.matchMedia('(hover:hover)').matches;
+// ---------------------------------------------
+// Setup
+// ---------------------------------------------
+document.getElementById("year").textContent = new Date().getFullYear();
 
-/* ---------- Theme toggle ---------- */
-const root = document.documentElement;
-const themeToggle = document.getElementById('themeToggle');
-function setTheme(theme){
-  root.setAttribute('data-theme', theme);
-  localStorage.setItem('theme', theme);
-  themeToggle.setAttribute('aria-pressed', theme === 'dark');
-  themeToggle.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
-}
-themeToggle.addEventListener('click', () => {
-  const current = root.getAttribute('data-theme') || 'light';
-  setTheme(current === 'light' ? 'dark' : 'light');
-});
-setTheme(root.getAttribute('data-theme') || 'light');
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-/* ---------- Intro loader ---------- */
-window.addEventListener('load', () => {
-  const loader = document.getElementById('loader');
-  setTimeout(() => loader.classList.add('done'), prefersReducedMotion ? 0 : 500);
-});
+if (window.lucide) lucide.createIcons();
 
-/* ---------- Scroll progress bar ---------- */
-const scrollProgress = document.getElementById('scrollProgress');
-function updateProgress(){
-  const h = document.documentElement;
-  const scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
-  scrollProgress.style.width = scrolled + '%';
-}
-window.addEventListener('scroll', updateProgress, { passive:true });
-updateProgress();
+// ---------------------------------------------
+// Nav scroll state + mobile toggle
+// ---------------------------------------------
+const nav = document.getElementById("nav");
+const navToggle = document.getElementById("navToggle");
+const navLinks = document.querySelector(".nav-links");
 
-/* ---------- Custom cursor ---------- */
-if (canHover && !prefersReducedMotion) {
-  const dot = document.getElementById('cursorDot');
-  const ring = document.getElementById('cursorRing');
-  let rx = 0, ry = 0, tx = 0, ty = 0;
-  window.addEventListener('mousemove', (e) => {
-    tx = e.clientX; ty = e.clientY;
-    dot.style.transform = `translate(${tx}px, ${ty}px) translate(-50%,-50%)`;
+window.addEventListener("scroll", () => {
+  nav.classList.toggle("scrolled", window.scrollY > 20);
+}, { passive: true });
+
+if (navToggle) {
+  navToggle.addEventListener("click", () => {
+    const open = navLinks.classList.toggle("open");
+    navToggle.setAttribute("aria-expanded", open);
   });
-  function loop(){
-    rx += (tx - rx) * 0.18;
-    ry += (ty - ry) * 0.18;
-    ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%,-50%)`;
-    requestAnimationFrame(loop);
-  }
-  loop();
-  document.querySelectorAll('a, button, [data-tilt], .flip-card').forEach(el => {
-    el.addEventListener('mouseenter', () => ring.classList.add('hovering'));
-    el.addEventListener('mouseleave', () => ring.classList.remove('hovering'));
-  });
+}
+
+// ---------------------------------------------
+// Scroll reveal
+// ---------------------------------------------
+const revealEls = document.querySelectorAll(".reveal");
+
+if (reduceMotion) {
+  revealEls.forEach(el => el.classList.add("is-visible"));
 } else {
-  document.getElementById('cursorDot').style.display = 'none';
-  document.getElementById('cursorRing').style.display = 'none';
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("is-visible");
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: "0px 0px -40px 0px" });
+
+  revealEls.forEach(el => revealObserver.observe(el));
 }
 
-/* ---------- Mobile nav ---------- */
-const navToggle = document.getElementById('navToggle');
-const navLinks = document.getElementById('navLinks');
-navToggle.addEventListener('click', () => {
-  const isOpen = navLinks.classList.toggle('open');
-  navToggle.setAttribute('aria-expanded', isOpen);
-});
-navLinks.querySelectorAll('a').forEach(a => {
-  a.addEventListener('click', () => { navLinks.classList.remove('open'); navToggle.setAttribute('aria-expanded','false'); });
-});
+// ---------------------------------------------
+// Count-up stats
+// ---------------------------------------------
+const counters = document.querySelectorAll("[data-count]");
 
-/* ---------- Active section indicator ---------- */
-const navAnchors = document.querySelectorAll('.nav-links a[data-nav]');
-const sections = [...navAnchors].map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
-const navObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      const id = entry.target.getAttribute('id');
-      navAnchors.forEach(a => a.classList.toggle('active', a.getAttribute('href') === `#${id}`));
-    }
-  });
-}, { threshold: 0.35, rootMargin: '-80px 0px -55% 0px' });
-sections.forEach(s => navObserver.observe(s));
-
-/* ---------- Staggered scroll reveal ---------- */
-const revealGroups = new Map();
-document.querySelectorAll('.reveal').forEach(el => {
-  const parent = el.parentElement;
-  if (!revealGroups.has(parent)) revealGroups.set(parent, []);
-  revealGroups.get(parent).push(el);
-});
-revealGroups.forEach(group => { group.forEach((el, i) => { el.style.transitionDelay = `${Math.min(i * 80, 320)}ms`; }); });
-const revealObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('in'); revealObserver.unobserve(entry.target); } });
-}, { threshold: 0.15 });
-document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
-
-/* ---------- Stat counters ---------- */
-function animateCount(el){
+function animateCount(el) {
   const target = parseFloat(el.dataset.count);
-  const suffix = el.dataset.suffix || '';
-  const prefix = el.dataset.prefix || '';
-  const isDecimal = target % 1 !== 0;
-  const duration = 1200;
+  const suffix = el.dataset.suffix || "";
+  const duration = 1400;
   const start = performance.now();
-  function tick(now){
+
+  if (reduceMotion) {
+    el.textContent = target + suffix;
+    return;
+  }
+
+  function tick(now) {
     const progress = Math.min((now - start) / duration, 1);
     const eased = 1 - Math.pow(1 - progress, 3);
-    const value = target * eased;
-    el.textContent = prefix + (isDecimal ? value.toFixed(1) : Math.round(value)) + suffix;
+    const value = Math.round(target * eased);
+    el.textContent = value + suffix;
     if (progress < 1) requestAnimationFrame(tick);
   }
   requestAnimationFrame(tick);
 }
-const statObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => { if (entry.isIntersecting){ animateCount(entry.target); statObserver.unobserve(entry.target); } });
-}, { threshold: 0.6 });
-document.querySelectorAll('.stat-num').forEach(el => statObserver.observe(el));
 
-/* ---------- Magnetic buttons ---------- */
-if (canHover && !prefersReducedMotion) {
-  document.querySelectorAll('.magnetic').forEach(btn => {
-    btn.addEventListener('mousemove', (e) => {
-      const rect = btn.getBoundingClientRect();
-      const relX = e.clientX - rect.left - rect.width / 2;
-      const relY = e.clientY - rect.top - rect.height / 2;
-      btn.style.transform = `translate(${relX * 0.2}px, ${relY * 0.3}px)`;
-    });
-    btn.addEventListener('mouseleave', () => { btn.style.transform = ''; });
+const countObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      animateCount(entry.target);
+      countObserver.unobserve(entry.target);
+    }
   });
+}, { threshold: 0.4 });
+
+counters.forEach(el => countObserver.observe(el));
+
+// ---------------------------------------------
+// Animated background: data-flow particle network
+// ---------------------------------------------
+const canvas = document.getElementById("bg-canvas");
+const ctx = canvas.getContext("2d");
+
+let particles = [];
+let width, height;
+const COLORS = ["78,205,196", "244,163,64"];
+
+function resize() {
+  width = canvas.width = window.innerWidth;
+  height = canvas.height = window.innerHeight;
 }
 
-/* ---------- 3D tilt ---------- */
-if (canHover && !prefersReducedMotion) {
-  document.querySelectorAll('[data-tilt]').forEach(card => {
-    card.addEventListener('mousemove', (e) => {
-      const rect = card.getBoundingClientRect();
-      const px = (e.clientX - rect.left) / rect.width - 0.5;
-      const py = (e.clientY - rect.top) / rect.height - 0.5;
-      card.style.transform = `perspective(900px) rotateX(${(-py * 7).toFixed(2)}deg) rotateY(${(px * 7).toFixed(2)}deg)`;
-    });
-    card.addEventListener('mouseleave', () => { card.style.transform = 'perspective(900px) rotateX(0) rotateY(0)'; });
-  });
+function initParticles() {
+  const count = Math.min(70, Math.floor((width * height) / 18000));
+  particles = Array.from({ length: count }, () => ({
+    x: Math.random() * width,
+    y: Math.random() * height,
+    vx: (Math.random() - 0.5) * 0.35,
+    vy: (Math.random() - 0.5) * 0.35,
+    r: Math.random() * 1.6 + 0.6,
+    color: COLORS[Math.floor(Math.random() * COLORS.length)]
+  }));
 }
 
-/* ---------- Avatar flip ---------- */
-const flipAvatar = document.getElementById('flipAvatar');
-flipAvatar.addEventListener('click', () => flipAvatar.classList.toggle('flipped'));
+function step() {
+  ctx.clearRect(0, 0, width, height);
 
-/* ---------- Draggable sticker ---------- */
-(function makeDraggable(){
-  const sticker = document.getElementById('dragSticker');
-  let dragging = false, startX = 0, startY = 0, curX = 0, curY = 0;
-  function start(x, y){ dragging = true; startX = x - curX; startY = y - curY; }
-  function move(x, y){
-    if (!dragging) return;
-    curX = x - startX; curY = y - startY;
-    sticker.style.transform = `translate(${curX}px, ${curY}px) rotate(${curX * 0.15}deg)`;
+  particles.forEach(p => {
+    p.x += p.vx;
+    p.y += p.vy;
+    if (p.x < 0 || p.x > width) p.vx *= -1;
+    if (p.y < 0 || p.y > height) p.vy *= -1;
+
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(${p.color},0.7)`;
+    ctx.fill();
+  });
+
+  const maxDist = Math.min(150, width / 8);
+  for (let i = 0; i < particles.length; i++) {
+    for (let j = i + 1; j < particles.length; j++) {
+      const a = particles[i], b = particles[j];
+      const dx = a.x - b.x, dy = a.y - b.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < maxDist) {
+        ctx.beginPath();
+        ctx.moveTo(a.x, a.y);
+        ctx.lineTo(b.x, b.y);
+        ctx.strokeStyle = `rgba(78,205,196,${0.16 * (1 - dist / maxDist)})`;
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      }
+    }
   }
-  function end(){ dragging = false; }
-  sticker.addEventListener('mousedown', (e) => start(e.clientX, e.clientY));
-  window.addEventListener('mousemove', (e) => move(e.clientX, e.clientY));
-  window.addEventListener('mouseup', end);
-  sticker.addEventListener('touchstart', (e) => { const t = e.touches[0]; start(t.clientX, t.clientY); }, { passive:true });
-  window.addEventListener('touchmove', (e) => { const t = e.touches[0]; move(t.clientX, t.clientY); }, { passive:true });
-  window.addEventListener('touchend', end);
-})();
 
-/* ---------- Accordion (work experience) ---------- */
-document.querySelectorAll('.accordion-head').forEach(head => {
-  head.addEventListener('click', () => {
-    const item = head.closest('.accordion-item');
-    const isOpen = item.classList.contains('is-open');
-    item.classList.toggle('is-open', !isOpen);
-    head.setAttribute('aria-expanded', String(!isOpen));
-  });
-});
-
-/* ---------- Skill flip cards ---------- */
-document.querySelectorAll('.flip-card').forEach(card => {
-  function toggle(){ card.classList.toggle('flipped'); }
-  card.addEventListener('click', toggle);
-  card.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); } });
-});
-
-/* ---------- Back to top ---------- */
-const backToTop = document.getElementById('backToTop');
-window.addEventListener('scroll', () => { backToTop.classList.toggle('show', window.scrollY > 500); }, { passive:true });
-backToTop.addEventListener('click', () => window.scrollTo({ top:0, behavior: prefersReducedMotion ? 'auto' : 'smooth' }));
-
-/* ---------- Contact form (static placeholder) ---------- */
-const contactForm = document.getElementById('contactForm');
-const formNote = document.getElementById('formNote');
-contactForm.addEventListener('submit', (e) => {
-  e.preventDefault();
-  formNote.textContent = 'Thank you. This is a static demo. Connect Formspree or EmailJS to send this for real.';
-  formNote.style.fontWeight = '700';
-  contactForm.reset();
-});
-
-/* ---------- Resume buttons (placeholder) ---------- */
-function resumePlaceholder(e){
-  e.preventDefault();
-  alert('Add your resume PDF to the project and link it here, e.g. href="resume.pdf" download.');
+  if (!reduceMotion) requestAnimationFrame(step);
 }
-document.getElementById('resumeBtn').addEventListener('click', resumePlaceholder);
-document.getElementById('resumeCard').addEventListener('click', resumePlaceholder);
+
+resize();
+initParticles();
+
+if (reduceMotion) {
+  step(); // draw a single static frame
+} else {
+  requestAnimationFrame(step);
+}
+
+let resizeTimer;
+window.addEventListener("resize", () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(() => {
+    resize();
+    initParticles();
+  }, 200);
+});

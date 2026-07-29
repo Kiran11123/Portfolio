@@ -1,458 +1,392 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kiran Patil | Digital Transformation &amp; Business Analyst</title>
-<meta name="description" content="Kiran Patil. Digital Transformation professional specializing in Power BI, data analysis, and process automation.">
-
-<script>
-  (function(){
-    var saved = localStorage.getItem('theme');
-    document.documentElement.setAttribute('data-theme', saved || 'light');
-  })();
-</script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Kiran Patil — Digital Transformation &amp; Data Analytics</title>
+<meta name="description" content="Kiran Patil, Digital Transformation and Data Analytics professional. Power BI, SQL, Python automation, and process improvement." />
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link href="https://api.fontshare.com/v2/css?f[]=chillax@400,500,600,700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%230A0F1E%22/><text x=%2250%22 y=%2266%22 font-size=%2254%22 font-family=%22monospace%22 fill=%22%234ECDC4%22 text-anchor=%22middle%22>K</text></svg>">
+
+<link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-<a href="#main" class="skip-link">Skip to main content</a>
+<canvas id="bg-canvas" aria-hidden="true"></canvas>
 
-<div class="loader" id="loader" aria-hidden="true">
-  <span class="loader-text">KIRAN PATIL</span>
-</div>
+<div class="grain" aria-hidden="true"></div>
 
-<div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
-<div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
-<div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
-
-<div class="bg-dots" aria-hidden="true"></div>
-<div class="bg-blobs" aria-hidden="true">
-  <span class="blob blob-1"></span>
-  <span class="blob blob-2"></span>
-  <span class="blob blob-3"></span>
-</div>
-
-<!-- NAV -->
 <header class="nav" id="nav">
   <div class="nav-inner">
-    <a href="#top" class="logo">KIRAN PATIL<span class="logo-dot">●</span></a>
-    <nav class="nav-links" id="navLinks" aria-label="Primary">
-      <a href="#about" data-nav>Summary</a>
-      <a href="#experience" data-nav>Experience</a>
-      <a href="#education" data-nav>Education</a>
-      <a href="#certifications" data-nav>Certifications</a>
-      <a href="#skills" data-nav>Skills</a>
-      <a href="#contact" data-nav>Contact</a>
+    <a href="#top" class="nav-logo">KP<span class="dot">.</span></a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#skills">Skills</a>
+      <a href="#education">Education</a>
+      <a href="#contact">Contact</a>
     </nav>
-    <div class="nav-actions">
-      <button class="theme-toggle" id="themeToggle" aria-label="Switch to dark mode" aria-pressed="false">
-        <svg class="icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
-        <svg class="icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-      </button>
-      <a href="#contact" class="btn btn-primary btn-sm magnetic"><span>Contact</span></a>
-      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
+    <a class="nav-cta" href="assets/Kiran_Patil_CV.pdf" download>
+      <span>Résumé</span>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 21h16"/></svg>
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </header>
 
-<!-- MARQUEE -->
-<div class="marquee" aria-hidden="true">
-  <div class="marquee-track">
-    <span>DIGITAL TRANSFORMATION</span><span>★</span><span>POWER BI</span><span>★</span>
-    <span>PROCESS AUTOMATION</span><span>★</span><span>DATA ANALYSIS</span><span>★</span>
-    <span>DEN HAAG, NETHERLANDS</span><span>★</span><span>3+ YEARS EXPERIENCE</span><span>★</span>
-    <span>DIGITAL TRANSFORMATION</span><span>★</span><span>POWER BI</span><span>★</span>
-    <span>PROCESS AUTOMATION</span><span>★</span><span>DATA ANALYSIS</span><span>★</span>
-    <span>DEN HAAG, NETHERLANDS</span><span>★</span><span>3+ YEARS EXPERIENCE</span><span>★</span>
-  </div>
-</div>
+<main id="top">
 
-<main id="main">
-
-<!-- HERO -->
-<section class="hero" id="top">
-  <div class="hero-inner">
-    <div class="hero-text">
-      <p class="eyebrow">Digital Transformation · Business Analysis · Automation</p>
-      <h1>Kiran Patil</h1>
-      <p class="hero-role">Digital Transformation &amp; Business Analyst</p>
-      <p class="hero-sub">Digital transformation professional with over three years of experience in data analysis, business analysis, and process automation, focused on Power BI dashboards, data modeling, and stakeholder-driven KPI design.</p>
-      <div class="hero-actions">
-        <a href="#experience" class="btn btn-primary magnetic"><span>View Work Experience</span></a>
-        <a href="#" class="btn btn-secondary magnetic" id="resumeBtn"><span>Download Résumé</span></a>
-      </div>
-      <div class="hero-stats">
-        <div><span class="stat-num" data-count="3" data-suffix="+">0+</span><span class="stat-label">Years<br>Experience</span></div>
-        <div><span class="stat-num" data-count="90" data-suffix="%">0%</span><span class="stat-label">Reporting Time<br>Reduced (Danone)</span></div>
-        <div><span class="stat-num" data-count="85" data-suffix="%">0%</span><span class="stat-label">Faster Job<br>Development (TCS)</span></div>
-      </div>
-    </div>
-
-    <div class="hero-visual">
-      <div class="hero-frame" data-tilt>
-        <div class="avatar-block" id="flipAvatar">
-          <div class="avatar-face avatar-front"><span class="avatar-initials">KP</span></div>
-          <div class="avatar-face avatar-back"><span class="avatar-back-text">Digital<br>Transformation<br>&amp;<br>Business Analyst</span></div>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-copy">
+        <p class="eyebrow reveal">Digital Transformation · Data Analytics</p>
+        <h1 class="hero-title" id="heroTitle" aria-label="Kiran Patil">
+          <span class="line" data-text="Kiran"></span>
+          <span class="line" data-text="Patil"></span>
+        </h1>
+        <p class="hero-sub reveal">
+          I turn scattered data and manual processes into dashboards, automated
+          pipelines, and decisions people can act on. Based in The Hague, working
+          across Power BI, SQL, and Python.
+        </p>
+        <div class="hero-actions reveal">
+          <a href="#experience" class="btn btn-primary">
+            <span>See the work</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14m0 0l-6-6m6 6l-6 6"/></svg>
+          </a>
+          <a href="#contact" class="btn btn-ghost">Get in touch</a>
         </div>
-        <div class="sticker sticker-1" id="dragSticker">Den Haag<br>Netherlands<br><small>drag me</small></div>
-        <div class="shape-ring"></div>
-        <div class="shape-tri"></div>
-      </div>
-
-      <div class="mini-dashboard reveal" data-tilt aria-hidden="true">
-        <span class="mini-dashboard-label">Co-Manufacturer Report</span>
-        <div class="mini-bars">
-          <span style="--h:38%"></span><span style="--h:62%"></span><span style="--h:50%"></span>
-          <span style="--h:80%"></span><span style="--h:65%"></span><span style="--h:92%"></span>
+        <div class="hero-stats reveal">
+          <div class="stat">
+            <span class="stat-num" data-count="90" data-suffix="%">0%</span>
+            <span class="stat-label">manual reporting<br>time removed</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num" data-count="85" data-suffix="%">0%</span>
+            <span class="stat-label">faster job<br>development cycle</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num" data-count="3" data-suffix="+">0+</span>
+            <span class="stat-label">years in data &amp;<br>process roles</span>
+          </div>
         </div>
-        <span class="mini-dashboard-metric">Manual effort reduced 90%</span>
       </div>
 
-      <p class="hero-hint">Click the card to flip. Drag the badge.</p>
+      <div class="hero-visual reveal" aria-hidden="true">
+        <div class="panel">
+          <div class="panel-head">
+            <div class="panel-dots"><span></span><span></span><span></span></div>
+            <span class="panel-title">co-manufacturer_performance.pbix</span>
+          </div>
+          <div class="panel-body">
+            <div class="kpi-row">
+              <div class="kpi-card">
+                <span class="kpi-label">Compliance</span>
+                <span class="kpi-value" data-count="97" data-suffix="%">0%</span>
+              </div>
+              <div class="kpi-card">
+                <span class="kpi-label">On-time</span>
+                <span class="kpi-value" data-count="92" data-suffix="%">0%</span>
+              </div>
+              <div class="kpi-card kpi-accent">
+                <span class="kpi-label">Errors</span>
+                <span class="kpi-value" data-count="0" data-suffix="">0</span>
+              </div>
+            </div>
+            <svg class="chart-line" viewBox="0 0 300 90" preserveAspectRatio="none">
+              <polyline class="chart-path" points="0,70 40,55 80,60 120,35 160,42 200,20 240,28 300,10" />
+              <circle class="chart-dot" cx="300" cy="10" r="3.5" />
+            </svg>
+            <div class="bars-row">
+              <div class="bar" style="--h:38%"></div>
+              <div class="bar" style="--h:55%"></div>
+              <div class="bar" style="--h:44%"></div>
+              <div class="bar" style="--h:70%"></div>
+              <div class="bar" style="--h:60%"></div>
+              <div class="bar" style="--h:82%"></div>
+              <div class="bar" style="--h:95%"></div>
+            </div>
+          </div>
+        </div>
+        <div class="panel-glow" aria-hidden="true"></div>
+      </div>
     </div>
-  </div>
-</section>
+    <div class="scroll-cue reveal" aria-hidden="true">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
 
-<!-- CAREER SUMMARY -->
-<section class="section" id="about">
-  <div class="section-inner about-layout">
-    <div class="section-tag reveal">
-      <span class="tag-num">01</span>
-      <span class="section-eyebrow">Career Summary</span>
-    </div>
-    <div class="about-grid">
-      <h2 class="reveal">Career Summary</h2>
-      <div class="about-copy">
-        <p class="reveal">Digital Transformation professional with 3+ years of experience in data analysis, business analysis, and process automation. Experienced in translating business needs into data-driven solutions by gathering requirements, defining KPIs with stakeholders, and supporting decision-making through Power BI dashboards built using data modeling, DAX, and Power Query.</p>
-        <p class="reveal">Worked with multiple data sources to extract, clean, and structure data, enabling consistent and reliable performance tracking. Led automation initiatives that reduced manual reporting effort by up to 90% and developed Python-based solutions that improved process efficiency, reducing job development time by 85%. Skilled in Power BI, SQL, and Python, with a strong focus on process improvement, stakeholder collaboration, and driving data-driven transformation within organizations.</p>
+  <!-- ABOUT -->
+  <section class="section" id="about">
+    <div class="section-inner about-grid">
+      <div class="section-head reveal">
+        <p class="eyebrow">01 · About</p>
+        <h2>From raw data to decisions that hold up.</h2>
+      </div>
+      <div class="about-body reveal">
+        <p>
+          I am a Digital Transformation professional with three-plus years across
+          data analysis, business analysis, and process automation. My work
+          usually starts the same way: sit with stakeholders, understand what
+          they actually need to measure, then build the dashboard, script, or
+          workflow that gets them there without the manual overhead.
+        </p>
+        <p>
+          Most recently at Danone, I have been rebuilding how co-manufacturer
+          performance gets reported, cutting manual processing time by roughly
+          90% and removing the errors that came with it. Earlier, at TCS, I
+          automated a core piece of the job development process with a Python
+          script, bringing delivery time down by 85%. In between, I have worked
+          on Power BI and Jira integrations, prototyping, and product research.
+        </p>
         <div class="about-facts">
-          <div class="fact-card reveal" data-tilt><span class="fact-num">3+</span><span class="fact-label">Years across Business Analysis, Data Analysis, and Automation roles</span></div>
-          <div class="fact-card reveal" data-tilt><span class="fact-num">4</span><span class="fact-label">Organizations: Danone, GoodHabitz, TCS, Tikdin</span></div>
-          <div class="fact-card reveal" data-tilt>
-            <svg class="fact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            <span class="fact-label">Based in Den Haag, The Netherlands</span>
+          <div class="fact">
+            <span class="fact-label">Location</span>
+            <span class="fact-value">The Hague, Netherlands</span>
+          </div>
+          <div class="fact">
+            <span class="fact-label">Focus</span>
+            <span class="fact-value">Power BI · SQL · Python automation</span>
+          </div>
+          <div class="fact">
+            <span class="fact-label">Studying</span>
+            <span class="fact-value">MSc Digital Technology Engineering, Fontys</span>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- WORK EXPERIENCE (accordion) -->
-<section class="section section-alt" id="experience">
-  <div class="section-inner">
-    <div class="section-tag reveal">
-      <span class="tag-num">02</span>
-      <span class="section-eyebrow">Work Experience</span>
-    </div>
-    <h2 class="reveal">Work Experience</h2>
-    <p class="section-hint reveal">Click a role to expand the details.</p>
+  <!-- EXPERIENCE -->
+  <section class="section" id="experience">
+    <div class="section-inner">
+      <div class="section-head reveal">
+        <p class="eyebrow">02 · Experience</p>
+        <h2>A track record built one dashboard at a time.</h2>
+      </div>
 
-    <div class="accordion" id="accordion">
-      <div class="accordion-item reveal is-open">
-        <button class="accordion-head" aria-expanded="true">
-          <div class="accordion-head-left">
-            <span class="company-logo">D</span>
-            <div>
-              <h3>Digital Performance &amp; Quality Intern</h3>
-              <p class="timeline-org">Danone · Hoofddorp, The Netherlands</p>
+      <div class="timeline">
+
+        <article class="tl-item reveal">
+          <div class="tl-marker"><span class="tl-dot"></span><span class="tl-line"></span></div>
+          <div class="tl-content">
+            <div class="tl-meta">
+              <span class="tl-date">Dec 2025 — Jun 2026</span>
+              <span class="tl-tag">Current</span>
             </div>
-          </div>
-          <div class="accordion-right">
-            <span class="timeline-date">Dec 2025 - Jun 2026</span>
-            <span class="accordion-chevron">⌄</span>
-          </div>
-        </button>
-        <div class="accordion-body">
-          <div class="accordion-body-inner">
+            <h3>Digital Performance &amp; Quality Intern</h3>
+            <p class="tl-company">Danone · Hoofddorp, Netherlands</p>
             <ul>
-              <li>Automated monthly performance reporting, reducing manual processing time by approximately 90% and eliminating reporting errors</li>
-              <li>Developed Power BI dashboards using Power Query (M) and DAX, including data modeling, slicers, tooltips, and drill-through features for co-manufacturer performance analysis</li>
-              <li>Defined and implemented KPIs with business stakeholders and cross-functional teams to monitor compliance and quality metrics, enabling early issue detection</li>
-              <li>Extracted, cleaned, and transformed data using automated queries, improving data accuracy and reducing manual handling</li>
-              <li>Identified and validated data sources across multiple systems through stakeholder interviews and data flow mapping</li>
-              <li>Created structured walkthroughs and instructional videos to support dashboard adoption</li>
+              <li>Automated monthly performance reporting, cutting manual processing time by about 90% and removing recurring reporting errors.</li>
+              <li>Built Power BI dashboards with Power Query and DAX, including data models, slicers, tooltips, and drill-through views for co-manufacturer performance.</li>
+              <li>Defined KPIs with cross-functional stakeholders to track compliance and quality, supporting earlier issue detection.</li>
+              <li>Mapped data sources across systems through stakeholder interviews to keep reporting aligned with real requirements.</li>
             </ul>
           </div>
-        </div>
-      </div>
+        </article>
 
-      <div class="accordion-item reveal">
-        <button class="accordion-head" aria-expanded="false">
-          <div class="accordion-head-left">
-            <span class="company-logo">G</span>
-            <div>
-              <h3>Digital Transformation Analyst Intern</h3>
-              <p class="timeline-org">GoodHabitz B.V. · Eindhoven, The Netherlands</p>
-            </div>
-          </div>
-          <div class="accordion-right">
-            <span class="timeline-date">Apr 2025 - Jun 2025</span>
-            <span class="accordion-chevron">⌄</span>
-          </div>
-        </button>
-        <div class="accordion-body">
-          <div class="accordion-body-inner">
+        <article class="tl-item reveal">
+          <div class="tl-marker"><span class="tl-dot"></span><span class="tl-line"></span></div>
+          <div class="tl-content">
+            <div class="tl-meta"><span class="tl-date">Apr 2025 — Jun 2025</span></div>
+            <h3>Digital Transformation Analyst Intern</h3>
+            <p class="tl-company">GoodHabitz B.V · Eindhoven, Netherlands</p>
             <ul>
-              <li>Built a Power BI dashboard integrated with Jira to enable real-time visibility into workload, sprint planning, and team capacity</li>
-              <li>Applied Design Based Working (DBW) principles to develop and iterate user-centric lo-fi, mid-fi, and hi-fi prototypes based on stakeholder feedback</li>
-              <li>Conducted stakeholder interviews to gather user and functional requirements for user-centric system design</li>
-              <li>Performed Stakeholder Analysis to clarify team roles, needs, and expectations for dashboard alignment</li>
-              <li>Conducted Socio-Technical Analysis to align the solution with organizational and technical contexts</li>
-              <li>Executed a Digital Readiness Assessment covering infrastructure, reporting tool use, and Jira integration</li>
-              <li>Led user walkthroughs and feedback sessions to validate prototype usability and workflow fit</li>
+              <li>Built a Power BI dashboard integrated with Jira for real-time visibility into workload, sprint planning, and team capacity.</li>
+              <li>Applied Design Based Working principles to develop lo-fi through hi-fi prototypes from stakeholder feedback.</li>
+              <li>Ran stakeholder, socio-technical, and digital readiness analyses to align the solution with both process and infrastructure.</li>
+              <li>Led user walkthroughs to validate prototype usability before rollout.</li>
             </ul>
           </div>
-        </div>
-      </div>
+        </article>
 
-      <div class="accordion-item reveal">
-        <button class="accordion-head" aria-expanded="false">
-          <div class="accordion-head-left">
-            <span class="company-logo">T</span>
-            <div>
-              <h3>IT Business Analyst</h3>
-              <p class="timeline-org">Tata Consultancy Services (TCS) · India</p>
-            </div>
-          </div>
-          <div class="accordion-right">
-            <span class="timeline-date">Feb 2022 - Jul 2024</span>
-            <span class="accordion-chevron">⌄</span>
-          </div>
-        </button>
-        <div class="accordion-body">
-          <div class="accordion-body-inner">
+        <article class="tl-item reveal">
+          <div class="tl-marker"><span class="tl-dot"></span><span class="tl-line"></span></div>
+          <div class="tl-content">
+            <div class="tl-meta"><span class="tl-date">Feb 2022 — Jul 2024</span></div>
+            <h3>IT Business Analyst</h3>
+            <p class="tl-company">Tata Consultancy Services · India</p>
             <ul>
-              <li>Interacted closely with business stakeholders to understand and analyze their requirements</li>
-              <li>Proposed optimal technical and business solutions based on stakeholder needs</li>
-              <li>Identified and addressed inefficiencies in the job development process</li>
-              <li>Developed a Python script to automate a significant portion of the job development process, resulting in an 85% reduction in time, elimination of manual errors, and early delivery during the transition phase</li>
-              <li>Worked collaboratively with clients, technicians, and managerial staff to gather comprehensive requirements</li>
-              <li>Monitored deliverables and ensured timely completion of tasks</li>
-              <li>Generated insights, dashboards, and visualizations for process and job development using Power BI and Smartsheet</li>
-              <li>Used SQL and Linux to log into databases and servers, extracting account information for analysis</li>
-              <li>Regularly reported issues, progress, and other important information to stakeholders</li>
+              <li>Developed a Python script that automated a major part of the job development process, cutting time by 85% and removing manual errors.</li>
+              <li>Worked with clients and technical teams to gather requirements and propose solutions grounded in business need.</li>
+              <li>Used SQL and Linux to pull account data directly from databases and servers for analysis.</li>
+              <li>Built dashboards and reporting in Power BI and Smartsheet, and kept stakeholders informed throughout delivery.</li>
             </ul>
-            <div class="badge-row">
-              <span class="mini-badge">Star of the Month</span>
-              <span class="mini-badge">Best Team Award</span>
+            <div class="tl-badges">
+              <span class="badge">Star of the Month</span>
+              <span class="badge">Best Team Award</span>
             </div>
           </div>
-        </div>
-      </div>
+        </article>
 
-      <div class="accordion-item reveal">
-        <button class="accordion-head" aria-expanded="false">
-          <div class="accordion-head-left">
-            <span class="company-logo">T</span>
-            <div>
-              <h3>Associate Product Manager (Bootcamp)</h3>
-              <p class="timeline-org">Tikdin · France (Remote)</p>
-            </div>
-          </div>
-          <div class="accordion-right">
-            <span class="timeline-date">Jan 2023 - Mar 2023</span>
-            <span class="accordion-chevron">⌄</span>
-          </div>
-        </button>
-        <div class="accordion-body">
-          <div class="accordion-body-inner">
+        <article class="tl-item reveal">
+          <div class="tl-marker"><span class="tl-dot"></span></div>
+          <div class="tl-content">
+            <div class="tl-meta"><span class="tl-date">Jan 2023 — Mar 2023</span></div>
+            <h3>Associate Product Manager, Bootcamp</h3>
+            <p class="tl-company">Tikdin · France (Remote)</p>
             <ul>
-              <li>Created the product vision for Tikdin</li>
-              <li>Actively tracked the North Star Metric using Amplitude</li>
-              <li>Performed user research analysis by reaching out to users, conducting interviews, and understanding their pain points</li>
-              <li>Analyzed product stickiness metrics using Amplitude</li>
-              <li>Performed RICE Analysis as part of product prioritization</li>
-              <li>Drafted a Product Requirement Document, framing features around pain points identified through RICE Analysis and user interviews</li>
+              <li>Shaped the product vision and tracked the North Star Metric using Amplitude.</li>
+              <li>Ran user research through interviews to surface real pain points, then applied RICE analysis for prioritization.</li>
+              <li>Wrote the product requirements document based on findings from research and prioritization.</li>
             </ul>
           </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section class="section" id="skills">
+    <div class="section-inner">
+      <div class="section-head reveal">
+        <p class="eyebrow">03 · Skills</p>
+        <h2>The toolkit behind the numbers.</h2>
+      </div>
+
+      <div class="skills-grid">
+        <div class="skill-card reveal">
+          <div class="skill-icon" data-lucide="bar-chart-3"></div>
+          <h3>Data &amp; Analytics</h3>
+          <ul class="tag-list">
+            <li>Power BI</li><li>DAX &amp; Power Query</li><li>SQL</li><li>Python Automation</li><li>Data Visualization</li>
+          </ul>
+        </div>
+        <div class="skill-card reveal">
+          <div class="skill-icon" data-lucide="workflow"></div>
+          <h3>Process &amp; Delivery</h3>
+          <ul class="tag-list">
+            <li>Requirement Gathering</li><li>UAT</li><li>SDLC</li><li>Agile Methodology</li><li>Design Thinking</li>
+          </ul>
+        </div>
+        <div class="skill-card reveal">
+          <div class="skill-icon" data-lucide="layout-grid"></div>
+          <h3>Tools &amp; Platforms</h3>
+          <ul class="tag-list">
+            <li>Excel</li><li>Smartsheet</li><li>Jira</li><li>Amplitude</li><li>Cloud</li>
+          </ul>
+        </div>
+        <div class="skill-card reveal">
+          <div class="skill-icon" data-lucide="users"></div>
+          <h3>Stakeholders &amp; Strategy</h3>
+          <ul class="tag-list">
+            <li>Stakeholder Management</li><li>Strategic Planning</li><li>Systems Thinking</li><li>Communication</li><li>Leadership</li>
+          </ul>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- EDUCATION -->
-<section class="section" id="education">
-  <div class="section-inner">
-    <div class="section-tag reveal">
-      <span class="tag-num">03</span>
-      <span class="section-eyebrow">Education</span>
-    </div>
-    <h2 class="reveal">Education</h2>
-    <div class="edu-grid">
-      <div class="edu-card reveal" data-tilt>
-        <svg class="edu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.66 2.69 3 6 3s6-1.34 6-3v-5"/></svg>
-        <div>
-          <h3>Masters Digital Technology Engineering</h3>
-          <p class="edu-org">Fontys University of Applied Sciences</p>
-          <p class="edu-date">Aug 2024 - Jul 2026</p>
+  <!-- EDUCATION / CERTIFICATIONS -->
+  <section class="section" id="education">
+    <div class="section-inner">
+      <div class="section-head reveal">
+        <p class="eyebrow">04 · Education &amp; Certifications</p>
+        <h2>Formal training, kept current.</h2>
+      </div>
+
+      <div class="edu-grid">
+        <div class="edu-card reveal">
+          <div class="edu-icon" data-lucide="graduation-cap"></div>
+          <span class="edu-date">Aug 2024 — Jul 2026</span>
+          <h3>MSc Digital Technology Engineering</h3>
+          <p>Fontys University of Applied Sciences</p>
+        </div>
+        <div class="edu-card reveal">
+          <div class="edu-icon" data-lucide="graduation-cap"></div>
+          <span class="edu-date">Aug 2016 — Apr 2020</span>
+          <h3>BEng Mechanical Engineering</h3>
+          <p>Savitribai Phule Pune University</p>
+        </div>
+        <div class="edu-card reveal">
+          <div class="edu-icon" data-lucide="badge-check"></div>
+          <span class="edu-date">Certification</span>
+          <h3>Google Certified Associate Cloud Engineer</h3>
+          <p>Google Cloud Platform</p>
+        </div>
+        <div class="edu-card reveal">
+          <div class="edu-icon" data-lucide="badge-check"></div>
+          <span class="edu-date">Certification</span>
+          <h3>Power Platform Developer Associate</h3>
+          <p>Microsoft</p>
+        </div>
+        <div class="edu-card reveal">
+          <div class="edu-icon" data-lucide="badge-check"></div>
+          <span class="edu-date">Nov 2021 — Apr 2022</span>
+          <h3>Diploma in Software Testing</h3>
+          <p>Professional certification</p>
         </div>
       </div>
-      <div class="edu-card reveal" data-tilt>
-        <svg class="edu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.66 2.69 3 6 3s6-1.34 6-3v-5"/></svg>
-        <div>
-          <h3>Bachelor of Engineering, Mechanical Engineering</h3>
-          <p class="edu-org">Savitribai Phule Pune University</p>
-          <p class="edu-date">Aug 2016 - Apr 2020</p>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section contact-section" id="contact">
+    <div class="section-inner">
+      <div class="contact-grid">
+        <div class="reveal">
+          <p class="eyebrow">05 · Contact</p>
+          <h2>Let's talk about your data.</h2>
+          <p class="contact-copy">
+            Open to roles and conversations in data analysis, business analysis,
+            and digital transformation. The fastest way to reach me is by email.
+          </p>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CERTIFICATIONS -->
-<section class="section section-alt" id="certifications">
-  <div class="section-inner">
-    <div class="section-tag reveal">
-      <span class="tag-num">04</span>
-      <span class="section-eyebrow">Certifications</span>
-    </div>
-    <h2 class="reveal">Certifications</h2>
-    <div class="cert-grid">
-      <div class="cert-card reveal" data-tilt>
-        <svg class="cert-badge" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="6"/><path d="M9 14.5L7 22l5-3 5 3-2-7.5"/></svg>
-        <h3>Google Certified Associate Cloud Engineer</h3>
-        <p class="cert-org">Google Cloud Platform</p>
-      </div>
-      <div class="cert-card reveal" data-tilt>
-        <svg class="cert-badge" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="6"/><path d="M9 14.5L7 22l5-3 5 3-2-7.5"/></svg>
-        <h3>Microsoft Certified Power Platform Developer Associate</h3>
-        <p class="cert-org">Microsoft</p>
-      </div>
-      <div class="cert-card reveal" data-tilt>
-        <svg class="cert-badge" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="6"/><path d="M9 14.5L7 22l5-3 5 3-2-7.5"/></svg>
-        <h3>Diploma in Software Testing</h3>
-        <p class="cert-org">Nov 2021 - Apr 2022</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- SKILLS (flip cards) -->
-<section class="section" id="skills">
-  <div class="section-inner">
-    <div class="section-tag reveal">
-      <span class="tag-num">05</span>
-      <span class="section-eyebrow">Skills</span>
-    </div>
-    <h2 class="reveal">Skills</h2>
-    <p class="section-hint reveal">Click a card to flip it.</p>
-
-    <div class="skills-grid">
-      <div class="skill-card flip-card reveal" tabindex="0" role="button" aria-label="Flip card for more detail">
-        <div class="flip-inner">
-          <div class="flip-front">
-            <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.66 3.58 3 8 3s8-1.34 8-3V5"/><path d="M4 12c0 1.66 3.58 3 8 3s8-1.34 8-3"/></svg>
-            <h3>Data &amp; Analytics</h3>
-            <div class="skill-badges"><span>Data Visualization</span><span>Data Insights</span><span>SQL</span><span>Python Automation</span><span>Excel</span></div>
+        <div class="contact-cards reveal">
+          <a class="contact-card" href="mailto:kiranpatil3499@gmail.com">
+            <div class="contact-icon" data-lucide="mail"></div>
+            <div>
+              <span class="contact-label">Email</span>
+              <span class="contact-value">kiranpatil3499@gmail.com</span>
+            </div>
+          </a>
+          <a class="contact-card" href="tel:+31684253626">
+            <div class="contact-icon" data-lucide="phone"></div>
+            <div>
+              <span class="contact-label">Phone</span>
+              <span class="contact-value">+31 6 84253626</span>
+            </div>
+          </a>
+          <!-- Add your LinkedIn profile URL to the href below -->
+          <a class="contact-card" href="#" target="_blank" rel="noopener">
+            <div class="contact-icon" data-lucide="linkedin"></div>
+            <div>
+              <span class="contact-label">LinkedIn</span>
+              <span class="contact-value">Connect on LinkedIn</span>
+            </div>
+          </a>
+          <div class="contact-card contact-static">
+            <div class="contact-icon" data-lucide="map-pin"></div>
+            <div>
+              <span class="contact-label">Location</span>
+              <span class="contact-value">The Hague, Netherlands</span>
+            </div>
           </div>
-          <div class="flip-back"><p>Applied to extract, clean, and structure data from multiple systems for consistent performance tracking.</p></div>
-        </div>
-      </div>
-      <div class="skill-card flip-card reveal" tabindex="0" role="button" aria-label="Flip card for more detail">
-        <div class="flip-inner">
-          <div class="flip-front">
-            <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 3v18h18"/><rect x="7" y="12" width="3" height="6"/><rect x="12" y="8" width="3" height="10"/><rect x="17" y="5" width="3" height="13"/></svg>
-            <h3>BI &amp; Cloud</h3>
-            <div class="skill-badges"><span>Power BI</span><span>Smartsheet</span><span>Cloud</span><span>SDLC</span></div>
-          </div>
-          <div class="flip-back"><p>Includes Google Cloud and Microsoft Power Platform certifications.</p></div>
-        </div>
-      </div>
-      <div class="skill-card flip-card reveal" tabindex="0" role="button" aria-label="Flip card for more detail">
-        <div class="flip-inner">
-          <div class="flip-front">
-            <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 17h7M17.5 14v7"/></svg>
-            <h3>Business &amp; Process</h3>
-            <div class="skill-badges"><span>Requirement Gathering</span><span>UAT</span><span>Agile Methodology</span><span>Stakeholder Management</span><span>Strategic Planning</span></div>
-          </div>
-          <div class="flip-back"><p>Used to gather requirements and align cross-functional stakeholders on project delivery.</p></div>
-        </div>
-      </div>
-      <div class="skill-card flip-card reveal" tabindex="0" role="button" aria-label="Flip card for more detail">
-        <div class="flip-inner">
-          <div class="flip-front">
-            <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 18h6M10 21h4M12 3a6 6 0 00-4 10.5c.7.6 1 1.3 1 2.5h6c0-1.2.3-1.9 1-2.5A6 6 0 0012 3z"/></svg>
-            <h3>Product &amp; Mindset</h3>
-            <div class="skill-badges"><span>Design Thinking</span><span>Systems Thinking</span><span>Leadership</span><span>Problem Solving</span><span>AI</span></div>
-          </div>
-          <div class="flip-back"><p>Supports problem solving and collaborative decision-making across technical and business teams.</p></div>
         </div>
       </div>
     </div>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section class="section contact" id="contact">
-  <div class="section-inner">
-    <div class="section-tag reveal center">
-      <span class="tag-num">06</span>
-      <span class="section-eyebrow">Contact</span>
-    </div>
-    <h2 class="reveal center">Contact</h2>
-    <p class="contact-sub reveal">Available for Business Analyst, Data Analyst, and Digital Transformation opportunities.</p>
-
-    <div class="contact-grid reveal">
-      <a href="mailto:kiranpatil3499@gmail.com" class="contact-card magnetic" data-tilt>
-        <span>Email</span>
-        <small>kiranpatil3499@gmail.com</small>
-      </a>
-      <a href="tel:+31684253626" class="contact-card magnetic" data-tilt>
-        <span>Phone</span>
-        <small>+31 684253626</small>
-      </a>
-      <a href="#" class="contact-card magnetic" data-tilt>
-        <span>LinkedIn</span>
-        <small>View Profile</small>
-      </a>
-      <a href="#" class="contact-card magnetic" id="resumeCard" data-tilt>
-        <span>Résumé</span>
-        <small>Download PDF</small>
-      </a>
-    </div>
-
-    <form class="contact-form reveal" id="contactForm">
-      <div class="form-row">
-        <label>
-          <span>Name</span>
-          <input type="text" name="name" placeholder="Your name" required>
-        </label>
-        <label>
-          <span>Email</span>
-          <input type="email" name="email" placeholder="you@company.com" required>
-        </label>
-      </div>
-      <label>
-        <span>Message</span>
-        <textarea name="message" rows="4" placeholder="How can I help?" required></textarea>
-      </label>
-      <button type="submit" class="btn btn-primary full magnetic"><span>Send Message</span></button>
-      <p class="form-note" id="formNote">This form is a static placeholder. Connect Formspree, EmailJS, or an API route once deployed.</p>
-    </form>
-  </div>
-</section>
+  </section>
 
 </main>
 
 <footer class="footer">
-  <div class="section-inner footer-inner">
-    <span>© <span id="year"></span> Kiran Patil. All rights reserved.</span>
-    <a href="#top">Back to top</a>
+  <div class="footer-inner">
+    <span>Kiran Patil © <span id="year"></span></span>
+    <a href="assets/Kiran_Patil_CV.pdf" download>Download résumé</a>
   </div>
 </footer>
 
-<button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
-
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 <script src="script.js"></script>
 </body>
 </html>
