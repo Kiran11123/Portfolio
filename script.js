@@ -1,321 +1,450 @@
-document.getElementById('year').textContent = new Date().getFullYear();
-const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-const canHover = window.matchMedia('(hover:hover)').matches;
+// ---------------------------------------------
+// Setup
+// ---------------------------------------------
+document.getElementById("year").textContent = new Date().getFullYear();
 
-/* ---------- Theme toggle ---------- */
-const root = document.documentElement;
-const themeToggle = document.getElementById('themeToggle');
-function setTheme(theme){
-  root.setAttribute('data-theme', theme);
-  localStorage.setItem('theme', theme);
-  themeToggle.setAttribute('aria-pressed', theme === 'dark');
-  themeToggle.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
-}
-themeToggle.addEventListener('click', () => {
-  const current = root.getAttribute('data-theme') || 'light';
-  setTheme(current === 'light' ? 'dark' : 'light');
-});
-setTheme(root.getAttribute('data-theme') || 'light');
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const isCoarse = window.matchMedia("(pointer: coarse)").matches;
 
-/* ---------- Intro loader ---------- */
-window.addEventListener('load', () => {
-  const loader = document.getElementById('loader');
-  setTimeout(() => loader.classList.add('done'), prefersReducedMotion ? 0 : 500);
-});
+if (window.lucide) lucide.createIcons();
 
-/* ---------- Scroll progress bar ---------- */
-const scrollProgress = document.getElementById('scrollProgress');
-function updateProgress(){
-  const h = document.documentElement;
-  const scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
-  scrollProgress.style.width = scrolled + '%';
-}
-window.addEventListener('scroll', updateProgress, { passive:true });
-updateProgress();
-
-/* ---------- Custom cursor ---------- */
-if (canHover && !prefersReducedMotion) {
-  const dot = document.getElementById('cursorDot');
-  const ring = document.getElementById('cursorRing');
-  let rx = 0, ry = 0, tx = 0, ty = 0;
-  window.addEventListener('mousemove', (e) => {
-    tx = e.clientX; ty = e.clientY;
-    dot.style.transform = `translate(${tx}px, ${ty}px) translate(-50%,-50%)`;
+// ---------------------------------------------
+// Theme toggle (light / dark)
+// ---------------------------------------------
+const themeToggle = document.getElementById("themeToggle");
+if (themeToggle) {
+  themeToggle.addEventListener("click", () => {
+    const current = document.documentElement.getAttribute("data-theme");
+    const next = current === "light" ? "dark" : "light";
+    document.documentElement.setAttribute("data-theme", next);
+    try { localStorage.setItem("kp-theme", next); } catch (e) { /* storage unavailable */ }
   });
-  function loop(){
-    rx += (tx - rx) * 0.18;
-    ry += (ty - ry) * 0.18;
-    ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%,-50%)`;
-    requestAnimationFrame(loop);
+}
+
+// ---------------------------------------------
+// Back to top
+// ---------------------------------------------
+const backToTop = document.getElementById("backToTop");
+if (backToTop) {
+  window.addEventListener("scroll", () => {
+    backToTop.classList.toggle("visible", window.scrollY > window.innerHeight * 0.6);
+  }, { passive: true });
+
+  backToTop.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+  });
+}
+
+// ---------------------------------------------
+// Preloader
+// ---------------------------------------------
+const preloader = document.getElementById("preloader");
+const preCount = document.getElementById("preCount");
+const preBar = document.getElementById("preBar");
+
+(function runPreloader() {
+  if (reduceMotion) {
+    preloader.classList.add("done");
+    return;
   }
-  loop();
-  document.querySelectorAll('a, button, [data-tilt], .flip-card').forEach(el => {
-    el.addEventListener('mouseenter', () => ring.classList.add('hovering'));
-    el.addEventListener('mouseleave', () => ring.classList.remove('hovering'));
+  let progress = 0;
+  const start = performance.now();
+  const duration = 1100;
+
+  function tick(now) {
+    const elapsed = now - start;
+    progress = Math.min(100, Math.round((elapsed / duration) * 100));
+    preCount.textContent = progress;
+    preBar.style.width = progress + "%";
+    if (progress < 100) {
+      requestAnimationFrame(tick);
+    } else {
+      setTimeout(() => preloader.classList.add("done"), 250);
+    }
+  }
+  requestAnimationFrame(tick);
+})();
+
+// ---------------------------------------------
+// Nav scroll state + mobile toggle
+// ---------------------------------------------
+const nav = document.getElementById("nav");
+const navToggle = document.getElementById("navToggle");
+const navLinks = document.querySelector(".nav-links");
+const progressFill = document.getElementById("progressFill");
+
+window.addEventListener("scroll", () => {
+  nav.classList.toggle("scrolled", window.scrollY > 20);
+
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const scrolled = docHeight > 0 ? (window.scrollY / docHeight) * 100 : 0;
+  progressFill.style.width = scrolled + "%";
+}, { passive: true });
+
+if (navToggle) {
+  navToggle.addEventListener("click", () => {
+    const open = navLinks.classList.toggle("open");
+    navToggle.setAttribute("aria-expanded", open);
   });
-} else {
-  document.getElementById('cursorDot').style.display = 'none';
-  document.getElementById('cursorRing').style.display = 'none';
+  navLinks.querySelectorAll("a").forEach(a => a.addEventListener("click", () => {
+    navLinks.classList.remove("open");
+    navToggle.setAttribute("aria-expanded", false);
+  }));
 }
 
-/* ---------- Mobile nav ---------- */
-const navToggle = document.getElementById('navToggle');
-const navLinks = document.getElementById('navLinks');
-navToggle.addEventListener('click', () => {
-  const isOpen = navLinks.classList.toggle('open');
-  navToggle.setAttribute('aria-expanded', isOpen);
-});
-navLinks.querySelectorAll('a').forEach(a => {
-  a.addEventListener('click', () => { navLinks.classList.remove('open'); navToggle.setAttribute('aria-expanded','false'); });
-});
+// ---------------------------------------------
+// Custom cursor
+// ---------------------------------------------
+const cursorDot = document.getElementById("cursorDot");
+const cursorRing = document.getElementById("cursorRing");
 
-/* ---------- Active section indicator ---------- */
-const navAnchors = document.querySelectorAll('.nav-links a[data-nav]');
-const sections = [...navAnchors].map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
-const navObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      const id = entry.target.getAttribute('id');
-      navAnchors.forEach(a => a.classList.toggle('active', a.getAttribute('href') === `#${id}`));
-    }
+if (!isCoarse) {
+  let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
+  let ringX = mouseX, ringY = mouseY;
+
+  window.addEventListener("mousemove", (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    cursorDot.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%,-50%)`;
   });
-}, { threshold: 0.35, rootMargin: '-80px 0px -55% 0px' });
-sections.forEach(s => navObserver.observe(s));
 
-/* ---------- Staggered scroll reveal ---------- */
-const revealGroups = new Map();
-document.querySelectorAll('.reveal').forEach(el => {
-  const parent = el.parentElement;
-  if (!revealGroups.has(parent)) revealGroups.set(parent, []);
-  revealGroups.get(parent).push(el);
-});
-revealGroups.forEach(group => { group.forEach((el, i) => { el.style.transitionDelay = `${Math.min(i * 80, 320)}ms`; }); });
-const revealObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('in'); revealObserver.unobserve(entry.target); } });
-}, { threshold: 0.15 });
-document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+  function animateRing() {
+    ringX += (mouseX - ringX) * 0.18;
+    ringY += (mouseY - ringY) * 0.18;
+    cursorRing.style.transform = `translate(${ringX}px, ${ringY}px) translate(-50%,-50%)`;
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
 
-/* ---------- Stat counters ---------- */
-function animateCount(el){
+  document.querySelectorAll("a, button, .tilt, .tilt-sm").forEach(el => {
+    el.addEventListener("mouseenter", () => cursorRing.classList.add("hovered"));
+    el.addEventListener("mouseleave", () => cursorRing.classList.remove("hovered"));
+  });
+}
+
+// ---------------------------------------------
+// Magnetic buttons
+// ---------------------------------------------
+if (!isCoarse && !reduceMotion) {
+  document.querySelectorAll(".magnetic").forEach(el => {
+    el.addEventListener("mousemove", (e) => {
+      const rect = el.getBoundingClientRect();
+      const relX = e.clientX - rect.left - rect.width / 2;
+      const relY = e.clientY - rect.top - rect.height / 2;
+      el.style.transform = `translate(${relX * 0.25}px, ${relY * 0.35}px)`;
+    });
+    el.addEventListener("mouseleave", () => {
+      el.style.transform = "translate(0,0)";
+    });
+  });
+}
+
+// ---------------------------------------------
+// Tilt cards
+// ---------------------------------------------
+if (!isCoarse && !reduceMotion) {
+  document.querySelectorAll(".tilt").forEach(el => {
+    el.addEventListener("mousemove", (e) => {
+      const rect = el.getBoundingClientRect();
+      const px = (e.clientX - rect.left) / rect.width - 0.5;
+      const py = (e.clientY - rect.top) / rect.height - 0.5;
+      el.style.transform = `perspective(600px) rotateX(${py * -6}deg) rotateY(${px * 6}deg)`;
+    });
+    el.addEventListener("mouseleave", () => {
+      el.style.transform = "perspective(600px) rotateX(0) rotateY(0)";
+    });
+  });
+}
+
+// ---------------------------------------------
+// Hero spotlight follows cursor
+// ---------------------------------------------
+const heroSpotlight = document.getElementById("heroSpotlight");
+if (heroSpotlight && !isCoarse) {
+  document.querySelector(".hero").addEventListener("mousemove", (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    heroSpotlight.style.setProperty("--x", `${e.clientX - rect.left}px`);
+    heroSpotlight.style.setProperty("--y", `${e.clientY - rect.top}px`);
+  });
+}
+
+// ---------------------------------------------
+// Scroll reveal
+// ---------------------------------------------
+const revealEls = document.querySelectorAll(".reveal");
+
+if (reduceMotion) {
+  revealEls.forEach(el => el.classList.add("is-visible"));
+} else {
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("is-visible");
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: "0px 0px -40px 0px" });
+
+  revealEls.forEach(el => revealObserver.observe(el));
+}
+
+// ---------------------------------------------
+// Count-up stats
+// ---------------------------------------------
+const counters = document.querySelectorAll("[data-count]");
+
+function animateCount(el) {
   const target = parseFloat(el.dataset.count);
-  const suffix = el.dataset.suffix || '';
-  const prefix = el.dataset.prefix || '';
-  const isDecimal = target % 1 !== 0;
-  const duration = 1200;
+  const suffix = el.dataset.suffix || "";
+  const duration = 1400;
   const start = performance.now();
-  function tick(now){
+
+  if (reduceMotion) {
+    el.textContent = target + suffix;
+    return;
+  }
+
+  function tick(now) {
     const progress = Math.min((now - start) / duration, 1);
     const eased = 1 - Math.pow(1 - progress, 3);
-    const value = target * eased;
-    el.textContent = prefix + (isDecimal ? value.toFixed(1) : Math.round(value)) + suffix;
+    const value = Math.round(target * eased);
+    el.textContent = value + suffix;
     if (progress < 1) requestAnimationFrame(tick);
   }
   requestAnimationFrame(tick);
 }
-const statObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => { if (entry.isIntersecting){ animateCount(entry.target); statObserver.unobserve(entry.target); } });
-}, { threshold: 0.6 });
-document.querySelectorAll('.stat-num').forEach(el => statObserver.observe(el));
 
-/* ---------- Magnetic buttons ---------- */
-if (canHover && !prefersReducedMotion) {
-  document.querySelectorAll('.magnetic').forEach(btn => {
-    btn.addEventListener('mousemove', (e) => {
-      const rect = btn.getBoundingClientRect();
-      const relX = e.clientX - rect.left - rect.width / 2;
-      const relY = e.clientY - rect.top - rect.height / 2;
-      btn.style.transform = `translate(${relX * 0.2}px, ${relY * 0.3}px)`;
-    });
-    btn.addEventListener('mouseleave', () => { btn.style.transform = ''; });
+const countObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      animateCount(entry.target);
+      countObserver.unobserve(entry.target);
+    }
   });
-}
+}, { threshold: 0.4 });
 
-/* ---------- 3D tilt ---------- */
-if (canHover && !prefersReducedMotion) {
-  document.querySelectorAll('[data-tilt]').forEach(card => {
-    card.addEventListener('mousemove', (e) => {
-      const rect = card.getBoundingClientRect();
-      const px = (e.clientX - rect.left) / rect.width - 0.5;
-      const py = (e.clientY - rect.top) / rect.height - 0.5;
-      card.style.transform = `perspective(900px) rotateX(${(-py * 7).toFixed(2)}deg) rotateY(${(px * 7).toFixed(2)}deg)`;
-    });
-    card.addEventListener('mouseleave', () => { card.style.transform = 'perspective(900px) rotateX(0) rotateY(0)'; });
+counters.forEach(el => countObserver.observe(el));
+
+// ---------------------------------------------
+// Live dashboard mock: bars, chart line, and KPIs keep moving
+// ---------------------------------------------
+const dashPanel = document.querySelector(".hero-visual .panel");
+
+if (dashPanel && !reduceMotion) {
+  // Moving bars
+  const bars = dashPanel.querySelectorAll(".bar");
+  bars.forEach(bar => {
+    const initial = parseFloat(bar.style.getPropertyValue("--h")) || 50;
+    bar.dataset.prev = initial;
   });
-}
-
-/* ---------- Avatar flip ---------- */
-const flipAvatar = document.getElementById('flipAvatar');
-flipAvatar.addEventListener('click', () => flipAvatar.classList.toggle('flipped'));
-
-/* ---------- Draggable sticker ---------- */
-(function makeDraggable(){
-  const sticker = document.getElementById('dragSticker');
-  let dragging = false, startX = 0, startY = 0, curX = 0, curY = 0;
-  function start(x, y){ dragging = true; startX = x - curX; startY = y - curY; }
-  function move(x, y){
-    if (!dragging) return;
-    curX = x - startX; curY = y - startY;
-    sticker.style.transform = `translate(${curX}px, ${curY}px) rotate(${curX * 0.15}deg)`;
-  }
-  function end(){ dragging = false; }
-  sticker.addEventListener('mousedown', (e) => start(e.clientX, e.clientY));
-  window.addEventListener('mousemove', (e) => move(e.clientX, e.clientY));
-  window.addEventListener('mouseup', end);
-  sticker.addEventListener('touchstart', (e) => { const t = e.touches[0]; start(t.clientX, t.clientY); }, { passive:true });
-  window.addEventListener('touchmove', (e) => { const t = e.touches[0]; move(t.clientX, t.clientY); }, { passive:true });
-  window.addEventListener('touchend', end);
-})();
-
-/* ---------- Accordion (work experience) ---------- */
-document.querySelectorAll('.accordion-head').forEach(head => {
-  head.addEventListener('click', () => {
-    const item = head.closest('.accordion-item');
-    const isOpen = item.classList.contains('is-open');
-    item.classList.toggle('is-open', !isOpen);
-    head.setAttribute('aria-expanded', String(!isOpen));
-  });
-});
-
-/* ---------- Skill flip cards ---------- */
-document.querySelectorAll('.flip-card').forEach(card => {
-  function toggle(){ card.classList.toggle('flipped'); }
-  card.addEventListener('click', toggle);
-  card.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); } });
-});
-
-/* ---------- Back to top ---------- */
-const backToTop = document.getElementById('backToTop');
-window.addEventListener('scroll', () => { backToTop.classList.toggle('show', window.scrollY > 500); }, { passive:true });
-backToTop.addEventListener('click', () => window.scrollTo({ top:0, behavior: prefersReducedMotion ? 'auto' : 'smooth' }));
-
-/* ---------- Contact form (static placeholder) ---------- */
-const contactForm = document.getElementById('contactForm');
-const formNote = document.getElementById('formNote');
-contactForm.addEventListener('submit', (e) => {
-  e.preventDefault();
-  formNote.textContent = 'Thank you. This is a static demo. Connect Formspree or EmailJS to send this for real.';
-  formNote.style.fontWeight = '700';
-  contactForm.reset();
-});
-
-/* ---------- Skills in Practice: dynamic dashboard widget ---------- */
-(function dashboardWidget(){
-  const growthEl = document.getElementById('dashGrowth');
-  const efficiencyEl = document.getElementById('dashEfficiency');
-  const accuracyEl = document.getElementById('dashAccuracy');
-  const polyline = document.getElementById('dashPolyline');
-  const dot = document.getElementById('dashDot');
-  const bars = document.querySelectorAll('#dashBars span');
-  if (!growthEl) return;
-
-  const state = { growth: 24, efficiency: 92, accuracy: 98 };
-  let linePoints = [45, 38, 42, 25, 20, 10, 8];
-  let barHeights = [35, 48, 30, 60, 52, 70, 80];
-
-  function flashValue(el, oldVal, newVal){
-    el.textContent = newVal + '%';
-    el.classList.remove('up','down');
-    if (newVal > oldVal) el.classList.add('up');
-    else if (newVal < oldVal) el.classList.add('down');
-    setTimeout(() => el.classList.remove('up','down'), 1400);
-  }
-
-  function clamp(v, min, max){ return Math.max(min, Math.min(max, v)); }
-
-  function tick(){
-    const newGrowth = clamp(state.growth + Math.round((Math.random() - 0.45) * 6), 8, 45);
-    const newEfficiency = clamp(state.efficiency + Math.round((Math.random() - 0.5) * 5), 70, 99);
-    const newAccuracy = clamp(state.accuracy + Math.round((Math.random() - 0.5) * 3), 85, 99);
-
-    flashValue(growthEl, state.growth, newGrowth);
-    flashValue(efficiencyEl, state.efficiency, newEfficiency);
-    flashValue(accuracyEl, state.accuracy, newAccuracy);
-    state.growth = newGrowth; state.efficiency = newEfficiency; state.accuracy = newAccuracy;
-
-    linePoints.shift();
-    const lastY = linePoints[linePoints.length - 1];
-    const nextY = clamp(lastY + (Math.random() - 0.5) * 22, 5, 50);
-    linePoints.push(nextY);
-    const xs = [0, 46, 92, 138, 184, 230, 280];
-    const pointsStr = xs.map((x, i) => `${x},${(60 - linePoints[i]).toFixed(1)}`).join(' ');
-    polyline.setAttribute('points', pointsStr);
-    dot.setAttribute('cy', (60 - linePoints[linePoints.length - 1]).toFixed(1));
-
-    barHeights = barHeights.map((h, i) => {
-      const nh = clamp(h + Math.round((Math.random() - 0.5) * 30), 20, 90);
-      const barEl = bars[i];
-      barEl.style.setProperty('--h', nh + '%');
-      barEl.classList.remove('up','down');
-      if (nh > h) barEl.classList.add('up');
-      else if (nh < h) barEl.classList.add('down');
-      setTimeout(() => barEl.classList.remove('up','down'), 1400);
-      return nh;
+  function nudgeBars() {
+    bars.forEach(bar => {
+      const prev = parseFloat(bar.dataset.prev) || 50;
+      const h = 30 + Math.random() * 65;
+      bar.style.setProperty("--h", h.toFixed(0) + "%");
+      bar.classList.toggle("is-up", h >= prev);
+      bar.classList.toggle("is-down", h < prev);
+      bar.dataset.prev = h;
     });
   }
+  setInterval(nudgeBars, 2400);
 
-  if (!prefersReducedMotion) {
-    setInterval(tick, 2400);
+  // Redrawing trend line
+  const chartPath = dashPanel.querySelector(".chart-path");
+  const chartDot = dashPanel.querySelector(".chart-dot");
+  const POINT_COUNT = 8;
+  const CHART_W = 300, CHART_H = 90;
+
+  function randomChartPoints() {
+    const pts = [];
+    let y = 30 + Math.random() * 30;
+    for (let i = 0; i < POINT_COUNT; i++) {
+      y = Math.max(6, Math.min(CHART_H - 6, y + (Math.random() - 0.55) * 26));
+      pts.push({ x: (CHART_W / (POINT_COUNT - 1)) * i, y });
+    }
+    return pts;
   }
-})();
 
-/* ---------- Skills in Practice: code typing widgets ---------- */
-(function codeWidgets(){
-  const pythonSnippet = `def automate_job(source):
-    data = extract(source)
-    clean = transform(data)
-    load(clean, target="prod_db")
-    return "job complete, 85% faster"`;
+  let currentPts = randomChartPoints();
 
-  const sqlSnippet = `SELECT region, AVG(accuracy) AS avg_accuracy
-FROM performance_reports
-WHERE report_month = CURRENT_MONTH
-GROUP BY region
-ORDER BY avg_accuracy DESC;`;
+  function pointsToString(pts) {
+    return pts.map(p => `${p.x},${p.y}`).join(" ");
+  }
 
-  function typeLoop(elId, text){
-    const el = document.getElementById(elId);
-    if (!el) return;
-    if (prefersReducedMotion) { el.textContent = text; return; }
-
-    let i = 0;
-    function step(){
-      if (i <= text.length) {
-        el.textContent = text.slice(0, i);
-        i++;
-        setTimeout(step, 28);
+  function animateChartTo(targetPts, duration) {
+    const startPts = currentPts;
+    const start = performance.now();
+    function tick(now) {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 2);
+      const interp = startPts.map((p, i) => ({
+        x: p.x,
+        y: p.y + (targetPts[i].y - p.y) * eased
+      }));
+      chartPath.setAttribute("points", pointsToString(interp));
+      const last = interp[interp.length - 1];
+      if (chartDot) {
+        chartDot.setAttribute("cx", last.x);
+        chartDot.setAttribute("cy", last.y);
+      }
+      if (progress < 1) {
+        requestAnimationFrame(tick);
       } else {
-        setTimeout(() => { i = 0; el.textContent = ''; setTimeout(step, 500); }, 2600);
+        currentPts = targetPts;
       }
     }
-    step();
+    requestAnimationFrame(tick);
   }
 
-  typeLoop('pythonCode', pythonSnippet);
-  setTimeout(() => typeLoop('sqlCode', sqlSnippet), 400);
-})();
-
-/* ---------- Skills in Practice: design thinking stepper ---------- */
-(function stepperWidget(){
-  const steps = document.querySelectorAll('#stepper .step');
-  if (!steps.length || prefersReducedMotion) return;
-  let active = 0;
   setInterval(() => {
-    steps[active].classList.remove('is-active');
-    active = (active + 1) % steps.length;
-    steps[active].classList.add('is-active');
-  }, 1700);
-})();
+    const target = randomChartPoints();
+    const prevLast = currentPts[currentPts.length - 1].y;
+    const nextLast = target[target.length - 1].y;
+    const isUp = nextLast <= prevLast; // smaller y = higher on the chart
+    chartPath.classList.toggle("is-up", isUp);
+    chartPath.classList.toggle("is-down", !isUp);
+    if (chartDot) {
+      chartDot.classList.toggle("is-up", isUp);
+      chartDot.classList.toggle("is-down", !isUp);
+    }
+    animateChartTo(target, 1400);
+  }, 2600);
 
-/* ---------- Skills in Practice: socio-technical balance meter ---------- */
-(function balanceWidget(){
-  const fill = document.getElementById('balanceFill');
-  if (!fill || prefersReducedMotion) return;
-  const states = [50, 70, 35, 55, 65];
-  let i = 0;
-  setInterval(() => {
-    i = (i + 1) % states.length;
-    fill.style.width = states[i] + '%';
-    fill.style.marginLeft = states[i] > 50 ? '0' : (50 - states[i]) + '%';
-  }, 2000);
-})();
+  // Ticking KPI values
+  const kpiRanges = {
+    "0": [20, 29],
+    "1": [88, 96],
+    "2": [95, 99]
+  };
+  const kpiEls = dashPanel.querySelectorAll(".kpi-value");
+  kpiEls.forEach((el, i) => {
+    const range = kpiRanges[i] || [10, 90];
+    setInterval(() => {
+      const prev = parseFloat(el.dataset.count) || range[0];
+      const val = Math.round(range[0] + Math.random() * (range[1] - range[0]));
+      el.classList.toggle("is-up", val >= prev);
+      el.classList.toggle("is-down", val < prev);
+      el.dataset.count = val;
+      animateCount(el);
+    }, 3200 + i * 400);
+  });
+}
+const timeline = document.getElementById("timeline");
+const tlFill = document.getElementById("tlFill");
 
+if (timeline && tlFill) {
+  window.addEventListener("scroll", () => {
+    const rect = timeline.getBoundingClientRect();
+    const viewportH = window.innerHeight;
+    const total = rect.height;
+    const visible = Math.min(Math.max(viewportH * 0.6 - rect.top, 0), total);
+    const pct = total > 0 ? (visible / total) * 100 : 0;
+    tlFill.style.height = pct + "%";
+  }, { passive: true });
+}
+
+// ---------------------------------------------
+// Animated background: ambient trend lines + data-flow particle network
+// ---------------------------------------------
+const canvas = document.getElementById("bg-canvas");
+const ctx = canvas.getContext("2d");
+
+let particles = [];
+let width, height;
+let t = 0;
+const COLORS = ["78,205,196", "244,163,64"];
+
+const trendLines = [
+  { baseFrac: 0.22, amp1: 26, amp2: 10, f1: 0.006, f2: 0.017, speed1: 0.35, speed2: 0.6, color: "78,205,196", phase: 0 },
+  { baseFrac: 0.52, amp1: 34, amp2: 14, f1: 0.004, f2: 0.012, speed1: 0.28, speed2: 0.5, color: "244,163,64", phase: 2 },
+  { baseFrac: 0.8, amp1: 20, amp2: 9, f1: 0.008, f2: 0.02, speed1: 0.4, speed2: 0.7, color: "78,205,196", phase: 4 }
+];
+
+function drawTrendLines() {
+  trendLines.forEach(line => {
+    const baseY = height * line.baseFrac;
+    ctx.beginPath();
+    for (let x = 0; x <= width; x += 8) {
+      const y = baseY
+        + Math.sin(x * line.f1 + t * line.speed1 + line.phase) * line.amp1
+        + Math.sin(x * line.f2 + t * line.speed2 + line.phase) * line.amp2;
+      if (x === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+    }
+    ctx.strokeStyle = `rgba(${line.color},0.14)`;
+    ctx.lineWidth = 1.4;
+    ctx.stroke();
+  });
+}
+
+function resize() {
+  width = canvas.width = window.innerWidth;
+  height = canvas.height = window.innerHeight;
+}
+
+function initParticles() {
+  const count = Math.min(70, Math.floor((width * height) / 18000));
+  particles = Array.from({ length: count }, () => ({
+    x: Math.random() * width,
+    y: Math.random() * height,
+    vx: (Math.random() - 0.5) * 0.35,
+    vy: (Math.random() - 0.5) * 0.35,
+    r: Math.random() * 1.6 + 0.6,
+    color: COLORS[Math.floor(Math.random() * COLORS.length)]
+  }));
+}
+
+function step() {
+  ctx.clearRect(0, 0, width, height);
+  t += 1;
+
+  drawTrendLines();
+
+  particles.forEach(p => {
+    p.x += p.vx;
+    p.y += p.vy;
+    if (p.x < 0 || p.x > width) p.vx *= -1;
+    if (p.y < 0 || p.y > height) p.vy *= -1;
+
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(${p.color},0.7)`;
+    ctx.fill();
+  });
+
+  const maxDist = Math.min(150, width / 8);
+  for (let i = 0; i < particles.length; i++) {
+    for (let j = i + 1; j < particles.length; j++) {
+      const a = particles[i], b = particles[j];
+      const dx = a.x - b.x, dy = a.y - b.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < maxDist) {
+        ctx.beginPath();
+        ctx.moveTo(a.x, a.y);
+        ctx.lineTo(b.x, b.y);
+        ctx.strokeStyle = `rgba(78,205,196,${0.16 * (1 - dist / maxDist)})`;
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      }
+    }
+  }
+
+  if (!reduceMotion) requestAnimationFrame(step);
+}
+
+resize();
+initParticles();
+
+if (reduceMotion) {
+  step(); // draw a single static frame
+} else {
+  requestAnimationFrame(step);
+}
+
+let resizeTimer;
+window.addEventListener("resize", () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(() => {
+    resize();
+    initParticles();
+  }, 200);
+});
