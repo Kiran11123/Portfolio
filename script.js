@@ -267,21 +267,8 @@ if (dashPanel && !reduceMotion) {
 
   let currentPts = randomChartPoints();
 
-  function toSmoothPath(pts) {
-    let d = `M${pts[0].x},${pts[0].y}`;
-    const n = pts.length;
-    for (let i = 0; i < n - 1; i++) {
-      const p0 = pts[i - 1] || pts[i];
-      const p1 = pts[i];
-      const p2 = pts[i + 1];
-      const p3 = pts[i + 2] || p2;
-      const cp1x = p1.x + (p2.x - p0.x) / 6;
-      const cp1y = p1.y + (p2.y - p0.y) / 6;
-      const cp2x = p2.x - (p3.x - p1.x) / 6;
-      const cp2y = p2.y - (p3.y - p1.y) / 6;
-      d += ` C${cp1x.toFixed(1)},${cp1y.toFixed(1)} ${cp2x.toFixed(1)},${cp2y.toFixed(1)} ${p2.x},${p2.y}`;
-    }
-    return d;
+  function toSharpPath(pts) {
+    return "M" + pts.map(p => `${p.x},${p.y}`).join(" L");
   }
 
   function animateChartTo(targetPts, duration) {
@@ -294,7 +281,7 @@ if (dashPanel && !reduceMotion) {
         x: p.x,
         y: p.y + (targetPts[i].y - p.y) * eased
       }));
-      chartPath.setAttribute("d", toSmoothPath(interp));
+      chartPath.setAttribute("d", toSharpPath(interp));
       const last = interp[interp.length - 1];
       if (chartDot) {
         chartDot.setAttribute("cx", last.x);
