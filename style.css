@@ -396,13 +396,6 @@ main, .nav, .footer { position: relative; z-index: 2; }
   to { transform: translateY(0) rotate(0); opacity: 1; }
 }
 
-.hero-sub {
-  max-width: 480px;
-  font-size: 1.05rem;
-  color: var(--text-muted);
-  margin-bottom: 28px;
-}
-
 .open-badge {
   display: inline-flex;
   align-items: center;
@@ -514,32 +507,11 @@ main, .nav, .footer { position: relative; z-index: 2; }
 .kpi-value.is-up { color: var(--up); }
 .kpi-value.is-down { color: var(--down); }
 
-.chart-line { width: 100%; height: 70px; margin-bottom: 16px; overflow: visible; }
-.chart-path {
-  fill: none;
-  stroke: var(--amber);
-  stroke-width: 2.4;
-  stroke-linecap: round;
-  stroke-linejoin: miter;
-  stroke-dasharray: 500;
-  stroke-dashoffset: 500;
-  animation: draw 1.8s var(--ease) 0.4s forwards;
-}
-.chart-dot { fill: var(--amber); opacity: 0; animation: dotIn 0.4s ease 2s forwards; }
-.chart-path.is-up { stroke: var(--up); }
-.chart-path.is-down { stroke: var(--down); }
-.chart-dot.is-up { fill: var(--up); }
-.chart-dot.is-down { fill: var(--down); }
-.chart-path { transition: stroke 0.4s ease; }
-.chart-dot { transition: fill 0.4s ease; }
-@keyframes draw { to { stroke-dashoffset: 0; } }
-@keyframes dotIn { to { opacity: 1; } }
-
 .bars-row {
   display: flex;
   align-items: flex-end;
   gap: 8px;
-  height: 70px;
+  height: 128px;
 }
 .bar {
   flex: 1;

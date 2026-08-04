@@ -249,67 +249,6 @@ if (dashPanel && !reduceMotion) {
   }
   setInterval(nudgeBars, 2400);
 
-  // Redrawing trend line
-  const chartPath = dashPanel.querySelector(".chart-path");
-  const chartDot = dashPanel.querySelector(".chart-dot");
-  const POINT_COUNT = 8;
-  const CHART_W = 300, CHART_H = 90;
-
-  function randomChartPoints() {
-    const pts = [];
-    let y = 30 + Math.random() * 30;
-    for (let i = 0; i < POINT_COUNT; i++) {
-      y = Math.max(8, Math.min(CHART_H - 8, y + (Math.random() - 0.5) * 18));
-      pts.push({ x: (CHART_W / (POINT_COUNT - 1)) * i, y });
-    }
-    return pts;
-  }
-
-  let currentPts = randomChartPoints();
-
-  function toSharpPath(pts) {
-    return "M" + pts.map(p => `${p.x},${p.y}`).join(" L");
-  }
-
-  function animateChartTo(targetPts, duration) {
-    const startPts = currentPts;
-    const start = performance.now();
-    function tick(now) {
-      const progress = Math.min((now - start) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 2);
-      const interp = startPts.map((p, i) => ({
-        x: p.x,
-        y: p.y + (targetPts[i].y - p.y) * eased
-      }));
-      chartPath.setAttribute("d", toSharpPath(interp));
-      const last = interp[interp.length - 1];
-      if (chartDot) {
-        chartDot.setAttribute("cx", last.x);
-        chartDot.setAttribute("cy", last.y);
-      }
-      if (progress < 1) {
-        requestAnimationFrame(tick);
-      } else {
-        currentPts = targetPts;
-      }
-    }
-    requestAnimationFrame(tick);
-  }
-
-  setInterval(() => {
-    const target = randomChartPoints();
-    const prevLast = currentPts[currentPts.length - 1].y;
-    const nextLast = target[target.length - 1].y;
-    const isUp = nextLast <= prevLast; // smaller y = higher on the chart
-    chartPath.classList.toggle("is-up", isUp);
-    chartPath.classList.toggle("is-down", !isUp);
-    if (chartDot) {
-      chartDot.classList.toggle("is-up", isUp);
-      chartDot.classList.toggle("is-down", !isUp);
-    }
-    animateChartTo(target, 1400);
-  }, 2600);
-
   // Ticking KPI values
   const kpiRanges = {
     "0": [20, 29],
